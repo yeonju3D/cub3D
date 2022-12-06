@@ -6,11 +6,11 @@
 /*   By: yeongo <yeongo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/06 12:47:25 by yeongo            #+#    #+#             */
-/*   Updated: 2022/12/05 23:11:14 by yeongo           ###   ########.fr       */
+/*   Updated: 2022/12/06 10:15:04 by yeongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "../include/ft_printf.h"
 #include <stdarg.h>
 
 static int	convert_format(const char format, va_list ap, int *result)
