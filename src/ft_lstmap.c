@@ -6,7 +6,7 @@
 /*   By: yeongo <yeongo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 14:15:37 by yeongo            #+#    #+#             */
-/*   Updated: 2022/10/04 10:42:27 by yeongo           ###   ########.fr       */
+/*   Updated: 2022/12/09 13:28:20 by yeongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,25 +14,25 @@
 
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
 {
+	t_list	*head_node;
 	t_list	*new_lst;
-	t_list	*cur;
+	void	*new_data;
 
 	if (lst == NULL)
 		return (NULL);
-	new_lst = ft_lstnew(f(lst->content));
-	if (new_lst == NULL)
-		return (NULL);
-	cur = new_lst;
-	while (lst->next != NULL)
+	head_node = ft_memset(head_node, 0, sizeof(t_list *));
+	new_lst = head_node->next;
+	while (lst != NULL)
 	{
-		cur->next = ft_lstnew(f(lst->next->content));
-		if (cur->next == NULL)
+		new_data = f(lst->content);
+		new_lst = ft_lstnew(new_data);
+		if (new_lst == NULL)
 		{
 			ft_lstclear(&new_lst, del);
 			return (NULL);
 		}
 		lst = lst->next;
-		cur = cur->next;
+		new_lst = new_lst->next;
 	}
-	return (new_lst);
+	return (head_node);
 }
