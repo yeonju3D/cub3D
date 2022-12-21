@@ -6,7 +6,7 @@
 #    By: yeongo <yeongo@student.42seoul.kr>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/07 17:00:59 by yeongo            #+#    #+#              #
-#    Updated: 2022/12/05 22:15:20 by yeongo           ###   ########.fr        #
+#    Updated: 2022/12/21 12:39:29 by yeongo           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,6 +23,7 @@ OBJ_DIR			:=		./.obj/
 SRC_FILES		:=		$(addsuffix .c,			\
 						ft_isalpha				\
 						ft_isdigit				\
+						ft_issign				\
 						ft_isalnum				\
 						ft_isascii				\
 						ft_isprint				\
@@ -69,7 +70,8 @@ SRC_FILES		:=		$(addsuffix .c,			\
 						ft_printf				\
 						print_number			\
 						print_text				\
-						ft_free)
+						ft_free					\
+						check_leaks)
 OBJ_FILES		:=		$(SRC_FILES:.c=.o)
 SRC				:=		$(addprefix $(SRC_DIR), $(SRC_FILES))
 OBJ				:=		$(addprefix $(OBJ_DIR), $(OBJ_FILES))

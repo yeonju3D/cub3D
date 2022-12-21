@@ -6,7 +6,7 @@
 /*   By: yeongo <yeongo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 11:56:30 by yeongo            #+#    #+#             */
-/*   Updated: 2022/07/07 16:02:28 by yeongo           ###   ########.fr       */
+/*   Updated: 2022/12/21 12:35:24 by yeongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static int	free_all(char **result, int max_index)
 	return (0);
 }
 
-static int	ft_res_size(char const *str, char sep)
+int	ft_res_size(char const *str, char sep)
 {
 	int	size;
 	int	index;

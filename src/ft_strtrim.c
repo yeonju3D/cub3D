@@ -6,7 +6,7 @@
 /*   By: yeongo <yeongo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 11:56:41 by yeongo            #+#    #+#             */
-/*   Updated: 2022/10/04 10:44:57 by yeongo           ###   ########.fr       */
+/*   Updated: 2022/12/21 14:53:36 by yeongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,6 @@ static int	valid_check(size_t *start, size_t *end, char const *s1, \
 		(*end)--;
 	if (*end < 0)
 		(*end)++;
-	if (*start > *end)
-		return (0);
 	return (1);
 }
 

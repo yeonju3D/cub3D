@@ -6,7 +6,7 @@
 /*   By: yeongo <yeongo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 17:37:08 by yeongo            #+#    #+#             */
-/*   Updated: 2022/10/04 10:44:24 by yeongo           ###   ########.fr       */
+/*   Updated: 2022/12/14 14:10:53 by yeongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,13 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	if (result == NULL)
 		return (NULL);
 	index = 0;
-	while (*s1)
+	while (s1 && *s1)
 	{
 		result[index] = *s1;
 		index++;
 		s1++;
 	}
-	while (*s2)
+	while (s2 && *s2)
 	{
 		result[index] = *s2;
 		index++;
