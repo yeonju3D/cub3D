@@ -6,11 +6,11 @@
 /*   By: yeongo <yeongo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 11:56:41 by yeongo            #+#    #+#             */
-/*   Updated: 2022/12/21 14:53:36 by yeongo           ###   ########.fr       */
+/*   Updated: 2022/12/28 21:01:44 by yeongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/libft.h"
+#include "../include/ft_string.h"
 #include <stdlib.h>
 
 static int	ft_issep(char c, char const *sep)

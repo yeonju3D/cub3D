@@ -6,12 +6,11 @@
 /*   By: yeongo <yeongo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 10:47:49 by yeongo            #+#    #+#             */
-/*   Updated: 2022/10/04 10:41:05 by yeongo           ###   ########.fr       */
+/*   Updated: 2022/12/28 20:54:27 by yeongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/libft.h"
-#include <stdlib.h>
+#include "../include/ft_memory.h"
 
 void	*ft_calloc(size_t count, size_t size)
 {

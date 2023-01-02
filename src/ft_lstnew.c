@@ -6,11 +6,11 @@
 /*   By: yeongo <yeongo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 12:02:24 by yeongo            #+#    #+#             */
-/*   Updated: 2022/10/04 10:47:01 by yeongo           ###   ########.fr       */
+/*   Updated: 2022/12/28 20:58:16 by yeongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/libft.h"
+#include "../include/ft_list.h"
 #include <stdlib.h>
 
 t_list	*ft_lstnew(void *content)

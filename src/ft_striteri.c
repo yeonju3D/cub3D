@@ -6,11 +6,11 @@
 /*   By: yeongo <yeongo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 20:25:54 by yeongo            #+#    #+#             */
-/*   Updated: 2022/10/04 10:44:25 by yeongo           ###   ########.fr       */
+/*   Updated: 2022/12/28 21:00:31 by yeongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/libft.h"
+#include "../include/ft_string.h"
 
 void	ft_striteri(char *s, void (*f)(unsigned int, char*))
 {

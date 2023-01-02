@@ -1,28 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstadd_back.c                                   :+:      :+:    :+:   */
+/*   ft_split.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yeongo <yeongo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/12 13:39:31 by yeongo            #+#    #+#             */
-/*   Updated: 2022/12/28 20:55:54 by yeongo           ###   ########.fr       */
+/*   Created: 2022/12/28 20:41:31 by yeongo            #+#    #+#             */
+/*   Updated: 2022/12/28 20:45:21 by yeongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/ft_list.h"
+#ifndef FT_SPLIT_H
+# define FT_SPLIT_H
 
-void	ft_lstadd_back(t_list **lst, t_list *new)
-{
-	t_list	*cur;
+int		ft_res_size(char const *str, char sep);
+char	**ft_split(char const *s, char c);
 
-	if (new == NULL)
-		return ;
-	if (*lst == NULL)
-	{
-		*lst = new;
-		return ;
-	}
-	cur = ft_lstlast(*lst);
-	cur->next = new;
-}
+#endif
