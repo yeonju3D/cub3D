@@ -6,7 +6,7 @@
 /*   By: yeongo <yeongo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 10:50:40 by yeongo            #+#    #+#             */
-/*   Updated: 2022/12/28 22:00:39 by yeongo           ###   ########.fr       */
+/*   Updated: 2023/01/05 06:56:21 by yeongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,11 @@ static int	ft_isspace(char c)
 int	ft_atoi(const char *str, int *result)
 {
 	int			sign;
-	int			err_num;
+	int			in_range;
 	long long	result_tmp;
 
 	sign = 1;
-	err_num = 0;
+	in_range = 1;
 	result_tmp = 0;
 	while (ft_isspace(*str))
 		str++;
@@ -40,9 +40,9 @@ int	ft_atoi(const char *str, int *result)
 	{
 		result_tmp = 10 * result_tmp + (sign * (*str - '0'));
 		if (result_tmp < INT_MIN || result_tmp > INT_MAX)
-			err_num = 1;
+			in_range = 0;
 		str++;
 	}
 	*result = result_tmp;
-	return (err_num);
+	return (in_range);
 }

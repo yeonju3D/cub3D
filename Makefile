@@ -6,7 +6,7 @@
 #    By: yeongo <yeongo@student.42seoul.kr>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/07 17:00:59 by yeongo            #+#    #+#              #
-#    Updated: 2023/01/03 06:29:28 by yeongo           ###   ########.fr        #
+#    Updated: 2023/01/05 09:58:09 by yeongo           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -52,6 +52,7 @@ SRC_FILES		:=	$(addsuffix .c,			\
 					ft_strtrim				\
 					ft_strmapi				\
 					ft_striteri				\
+					ft_str_append			\
 					ft_split				\
 					ft_calloc				\
 					ft_bzero				\
@@ -76,6 +77,7 @@ SRC_FILES		:=	$(addsuffix .c,			\
 					print_number			\
 					print_text				\
 					ft_printf				\
+					ft_abs					\
 					)
 OBJ_FILES		:=	$(SRC_FILES:.c=.o)
 SRC				:=	$(addprefix $(SRC_DIR), $(SRC_FILES))
