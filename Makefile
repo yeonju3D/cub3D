@@ -6,7 +6,7 @@
 #    By: yeongo <yeongo@student.42seoul.kr>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/07 17:00:59 by yeongo            #+#    #+#              #
-#    Updated: 2023/01/05 09:58:09 by yeongo           ###   ########.fr        #
+#    Updated: 2023/01/13 08:22:30 by yeongo           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -89,9 +89,14 @@ OBJ_FOLDER		:=	$(OBJ_DIR)
 OBJS			:=	$(OBJ)
 PRINT			:=	LIBFT
 
-ifdef BINARY_FILE
-		BINARY_NAME		:=	$(addprefix \", $(addsuffix \", $(BINARY_FILE)))
-		CPPFLAGS 		+=	-D BINARY_NAME=$(BINARY_NAME)
+ifdef MANDA_FILE
+		MANDA_NAME		:=	$(addprefix \", $(addsuffix \", $(MANDA_FILE)))
+		CPPFLAGS 		+=	-D MANDA_NAME=$(MANDA_NAME)
+endif
+
+ifdef BONUS_FILE
+		BONUS_NAME		:=	$(addprefix \", $(addsuffix \", $(BONUS_FILE)))
+		CPPFLAGS 		+=	-D BONUS_NAME=$(BONUS_NAME)
 endif
 
 .PHONY	:	all

@@ -6,15 +6,19 @@
 /*   By: yeongo <yeongo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/28 20:39:55 by yeongo            #+#    #+#             */
-/*   Updated: 2023/01/12 17:34:49 by yeongo           ###   ########.fr       */
+/*   Updated: 2023/01/13 08:19:41 by yeongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_MEMORY_H
 # define FT_MEMORY_H
 
-# ifndef BINARY_NAME
-#  define BINARY_NAME "a.out"
+# ifndef MANDA_NAME
+#  define MANDA_NAME "a.out"
+# endif
+
+# ifndef BONUS_NAME
+#  define BONUS_NAME "a.out"
 # endif
 
 # include <stdlib.h>
@@ -30,5 +34,6 @@ void	ft_free_str(char **str);
 void	ft_free_char(char ***ptr);
 void	ft_free_void(void ***ptr, int index_max);
 void	i_wanna_go_home(void);
+void	i_wanna_go_home_bonus(void);
 
 #endif
