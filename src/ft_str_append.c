@@ -13,7 +13,19 @@
 #include "../include/ft_string.h"
 #include "../include/ft_memory.h"
 
-int	ft_str_append(char *dst, const char *src)
+int	ft_strapp_front(const char *src, char *dst)
+{
+	char	*result;
+
+	result = ft_strjoin(src, dst);
+	if (result == NULL)
+		return (0);
+	free(dst);
+	dst = result;
+	return (1);
+}
+
+int	ft_strapp_back(char *dst, const char *src)
 {
 	char	*result;
 
