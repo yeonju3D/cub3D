@@ -89,16 +89,6 @@ OBJ_FOLDER		:=	$(OBJ_DIR)
 OBJS			:=	$(OBJ)
 PRINT			:=	LIBFT
 
-ifdef MANDA_FILE
-		MANDA_NAME		:=	$(addprefix \", $(addsuffix \", $(MANDA_FILE)))
-		CPPFLAGS 		+=	-D MANDA_NAME=$(MANDA_NAME)
-endif
-
-ifdef BONUS_FILE
-		BONUS_NAME		:=	$(addprefix \", $(addsuffix \", $(BONUS_FILE)))
-		CPPFLAGS 		+=	-D BONUS_NAME=$(BONUS_NAME)
-endif
-
 .PHONY	:	all
 all		:	$(OBJ_FOLDER) $(NAME)
 
