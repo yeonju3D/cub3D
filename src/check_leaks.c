@@ -18,18 +18,5 @@
 
 void	i_wanna_go_home(void)
 {
-	char	*str;
-
-	str = ft_strjoin("leaks ", MANDA_NAME);
-	system(str);
-	free(str);
-}
-
-void	i_wanna_go_home_bonus(void)
-{
-	char	*str;
-
-	str = ft_strjoin("leaks ", BONUS_NAME);
-	system(str);
-	free(str);
+	system("leaks $PPID");
 }

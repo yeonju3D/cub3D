@@ -13,14 +13,6 @@
 #ifndef FT_MEMORY_H
 # define FT_MEMORY_H
 
-# ifndef MANDA_NAME
-#  define MANDA_NAME "a.out"
-# endif
-
-# ifndef BONUS_NAME
-#  define BONUS_NAME "a.out"
-# endif
-
 # include <stdlib.h>
 
 void	*ft_calloc(size_t count, size_t size);
@@ -34,6 +26,5 @@ void	ft_free_str(char **str);
 void	ft_free_char(char ***ptr);
 void	ft_free_void(void ***ptr, int index_max);
 void	i_wanna_go_home(void);
-void	i_wanna_go_home_bonus(void);
 
 #endif
