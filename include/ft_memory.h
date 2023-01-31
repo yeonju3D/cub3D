@@ -6,7 +6,7 @@
 /*   By: yeongo <yeongo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/28 20:39:55 by yeongo            #+#    #+#             */
-/*   Updated: 2023/01/13 08:19:41 by yeongo           ###   ########.fr       */
+/*   Updated: 2023/01/31 11:31:03 by yeongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	*ft_memmove(void *dst, const void *src, size_t len);
 int		ft_memcmp(const void *s1, const void *s2, size_t n);
 void	*ft_memchr(const void *s, int c, size_t n);
 void	ft_free_str(char **str);
-void	ft_free_char(char ***ptr);
+void	ft_free_strings(char ***strings);
 void	ft_free_void(void ***ptr, int index_max);
 void	i_wanna_go_home(void);
 

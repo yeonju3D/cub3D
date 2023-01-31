@@ -6,7 +6,7 @@
 /*   By: yeongo <yeongo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 22:06:44 by yeongo            #+#    #+#             */
-/*   Updated: 2023/01/12 17:35:43 by yeongo           ###   ########.fr       */
+/*   Updated: 2023/01/31 11:30:23 by yeongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,33 +14,42 @@
 
 void	ft_free_str(char **str)
 {
-	free(*str);
-	*str = NULL;
+	if (*str != NULL)
+	{
+		free(*str);
+		*str = NULL;
+	}
 }
 
-void	ft_free_char(char ***ptr)
+void	ft_free_strings(char ***strings)
 {
 	int	index;
 
-	index = 0;
-	while ((*ptr)[index] != NULL)
+	if (*strings != NULL)
 	{
-		free((*ptr)[index]);
-		(*ptr)[index] = NULL;
-		index++;
+		index = 0;
+		while ((*strings)[index] != NULL)
+		{
+			free((*strings)[index]);
+			(*strings)[index] = NULL;
+			index++;
+		}
+		free(*strings);
+		*strings = NULL;
 	}
-	free(*ptr);
-	*ptr = NULL;
 }
 
 void	ft_free_void(void ***ptr, int index_max)
 {
-	while (--index_max >= 0)
+	if (*ptr != NULL)
 	{
-		if ((*ptr)[index_max] != NULL)
-			free((*ptr)[index_max]);
-		(*ptr)[index_max] = NULL;
+		while (--index_max >= 0)
+		{
+			if ((*ptr)[index_max] != NULL)
+				free((*ptr)[index_max]);
+			(*ptr)[index_max] = NULL;
+		}
+		free(*ptr);
+		*ptr = NULL;
 	}
-	free(*ptr);
-	*ptr = NULL;
 }
