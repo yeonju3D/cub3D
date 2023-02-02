@@ -6,11 +6,11 @@
 /*   By: yeongo <yeongo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 13:56:46 by yeongo            #+#    #+#             */
-/*   Updated: 2022/12/28 20:56:33 by yeongo           ###   ########.fr       */
+/*   Updated: 2023/02/02 10:55:21 by yeongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/ft_list.h"
+#include "ft_list.h"
 
 void	ft_lstclear(t_list **lst, void (*del)(void *))
 {

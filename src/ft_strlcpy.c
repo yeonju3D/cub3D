@@ -6,11 +6,11 @@
 /*   By: yeongo <yeongo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 17:15:39 by yeongo            #+#    #+#             */
-/*   Updated: 2022/12/28 21:01:04 by yeongo           ###   ########.fr       */
+/*   Updated: 2023/02/02 10:57:12 by yeongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/ft_string.h"
+#include "ft_string.h"
 
 size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
 {

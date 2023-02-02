@@ -6,11 +6,11 @@
 /*   By: yeongo <yeongo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 20:23:59 by yeongo            #+#    #+#             */
-/*   Updated: 2022/10/04 10:43:18 by yeongo           ###   ########.fr       */
+/*   Updated: 2023/02/02 10:56:19 by yeongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/libft.h"
+#include "libft.h"
 
 void	ft_putendl_fd(char *s, int fd)
 {

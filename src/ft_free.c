@@ -6,11 +6,11 @@
 /*   By: yeongo <yeongo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 22:06:44 by yeongo            #+#    #+#             */
-/*   Updated: 2023/01/31 01:47:45 by yeongo           ###   ########.fr       */
+/*   Updated: 2023/02/02 10:54:48 by yeongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/ft_memory.h"
+#include "ft_memory.h"
 
 void	ft_free_str(char **str)
 {

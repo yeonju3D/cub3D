@@ -6,11 +6,11 @@
 /*   By: yeongo <yeongo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 13:30:05 by yeongo            #+#    #+#             */
-/*   Updated: 2022/12/28 20:58:23 by yeongo           ###   ########.fr       */
+/*   Updated: 2023/02/02 10:55:56 by yeongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/ft_list.h"
+#include "ft_list.h"
 
 int	ft_lstsize(t_list *lst)
 {

@@ -6,12 +6,12 @@
 /*   By: yeongo <yeongo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/05 04:33:10 by yeongo            #+#    #+#             */
-/*   Updated: 2023/01/05 05:34:14 by yeongo           ###   ########.fr       */
+/*   Updated: 2023/02/02 10:56:40 by yeongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/ft_string.h"
-#include "../include/ft_memory.h"
+#include "ft_string.h"
+#include "ft_memory.h"
 
 int	ft_strapp_front(const char *src, char *dst)
 {

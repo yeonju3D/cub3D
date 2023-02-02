@@ -6,11 +6,11 @@
 /*   By: yeongo <yeongo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 10:50:40 by yeongo            #+#    #+#             */
-/*   Updated: 2023/01/05 06:56:21 by yeongo           ###   ########.fr       */
+/*   Updated: 2023/02/02 10:54:28 by yeongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/libft.h"
+#include "libft.h"
 #include <limits.h>
 
 static int	ft_isspace(char c)
