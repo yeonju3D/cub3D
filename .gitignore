@@ -1,4 +1,6 @@
 .DS_Store
-.obj
+.cache/
+.obj/
 *.o
-*.a
+libft.a
+compile_commands.json

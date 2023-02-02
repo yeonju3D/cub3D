@@ -6,11 +6,11 @@
 /*   By: yeongo <yeongo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 20:18:38 by yeongo            #+#    #+#             */
-/*   Updated: 2022/10/04 10:43:26 by yeongo           ###   ########.fr       */
+/*   Updated: 2023/02/02 13:21:46 by yeongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/libft.h"
+#include "libft.h"
 #include <limits.h>
 
 void	ft_putnbr_fd(int n, int fd)

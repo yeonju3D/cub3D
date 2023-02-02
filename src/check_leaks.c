@@ -6,12 +6,12 @@
 /*   By: yeongo <yeongo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 12:38:19 by yeongo            #+#    #+#             */
-/*   Updated: 2023/01/13 08:19:03 by yeongo           ###   ########.fr       */
+/*   Updated: 2023/02/02 12:02:41 by yeongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/ft_memory.h"
-#include "../include/ft_string.h"
+#include "ft_memory.h"
+#include "ft_string.h"
 #include <stdlib.h>
 #include <stdio.h>
 #include <unistd.h>

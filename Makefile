@@ -6,7 +6,7 @@
 #    By: yeongo <yeongo@student.42seoul.kr>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/07 17:00:59 by yeongo            #+#    #+#              #
-#    Updated: 2023/01/13 08:22:30 by yeongo           ###   ########.fr        #
+#    Updated: 2023/02/02 12:01:57 by yeongo           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,6 +15,7 @@ NAME			:=	libft.a
 CC				:=	cc
 CFLAGS			:=	-Wall -Wextra -Werror
 CPPFLAGS		:=
+MJFLAGS			 =	-MJ $@.part.json
 
 AR				:=	ar
 ARFLAGS			:=	rcus
@@ -23,6 +24,7 @@ RM				:=	rm -rf
 HEADER			:=	./include/
 SRC_DIR			:=	./src/
 OBJ_DIR			:=	./.obj/
+CACHE_DIR		:=	./.cache/
 
 SRC_FILES		:=	$(addsuffix .c,			\
 					ft_isalpha				\
@@ -80,6 +82,7 @@ SRC_FILES		:=	$(addsuffix .c,			\
 					ft_abs					\
 					)
 OBJ_FILES		:=	$(SRC_FILES:.c=.o)
+JSON_FILES		:=	compile_commands.json
 SRC				:=	$(addprefix $(SRC_DIR), $(SRC_FILES))
 OBJ				:=	$(addprefix $(OBJ_DIR), $(OBJ_FILES))
 
@@ -99,14 +102,15 @@ $(OBJ_FOLDER)	:
 
 $(NAME)	:	$(OBJS)
 	@$(AR) $(ARFLAGS) $@ $^
+	@(printf [ && find . -name "*.part.json" | xargs cat && printf ]) > $(JSON_FILES);
 	@echo "\033[01;32m       LFT_SUCCESS!      \033[0m"
 
 $(OBJ_FOLDER)%.o	:	$(SRC_FOLDER)%.c
-	@$(CC) $(CFLAGS) $(CPPFLAGS) -c -o $@ $<
+	@$(CC) $(CFLAGS) $(CPPFLAGS) $(MJFLAGS) -c -o $@ $<
 
 .PHONY	:	clean
 clean	:
-	@$(RM) $(OBJ_DIR)
+	@$(RM) $(OBJ_DIR) $(CACHE_DIR)
 	@echo "\033[91m    REMOVE LFT_OBJECT    \033[0m"
 
 .PHONY	:	fclean

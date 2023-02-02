@@ -6,11 +6,11 @@
 /*   By: yeongo <yeongo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 09:13:59 by yeongo            #+#    #+#             */
-/*   Updated: 2022/10/04 10:46:20 by yeongo           ###   ########.fr       */
+/*   Updated: 2023/02/02 13:22:56 by yeongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/ft_printf.h"
+#include "ft_printf.h"
 #include <limits.h>
 
 int	ft_putnbr_count(int n, int *result)

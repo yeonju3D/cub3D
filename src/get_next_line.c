@@ -6,12 +6,12 @@
 /*   By: yeongo <yeongo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 17:42:14 by yeongo            #+#    #+#             */
-/*   Updated: 2022/12/28 21:02:12 by yeongo           ###   ########.fr       */
+/*   Updated: 2023/02/02 13:22:43 by yeongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/ft_memory.h"
-#include "../include/get_next_line.h"
+#include "ft_memory.h"
+#include "get_next_line.h"
 
 static int	init_tmp_line(t_line *line)
 {
