@@ -6,11 +6,11 @@
 /*   By: yeongo <yeongo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 17:02:12 by yeongo            #+#    #+#             */
-/*   Updated: 2023/02/02 13:21:34 by yeongo           ###   ########.fr       */
+/*   Updated: 2023/02/03 17:35:21 by yeongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_memory.h"
+#include "ft_string.h"
 
 void	*ft_memmove(void *dst, const void *src, size_t len)
 {

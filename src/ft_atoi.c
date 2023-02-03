@@ -6,17 +6,12 @@
 /*   By: yeongo <yeongo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 10:50:40 by yeongo            #+#    #+#             */
-/*   Updated: 2023/02/02 12:02:50 by yeongo           ###   ########.fr       */
+/*   Updated: 2023/02/03 17:24:05 by yeongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_ctype.h"
 #include <limits.h>
-
-static int	ft_isspace(char c)
-{
-	return ((9 <= c && c <= 13) || c == 32);
-}
 
 int	ft_atoi(const char *str, int *result)
 {
