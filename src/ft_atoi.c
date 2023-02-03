@@ -6,12 +6,23 @@
 /*   By: yeongo <yeongo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 10:50:40 by yeongo            #+#    #+#             */
-/*   Updated: 2023/02/03 17:24:05 by yeongo           ###   ########.fr       */
+/*   Updated: 2023/02/03 18:11:04 by yeongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ctype.h"
 #include <limits.h>
+
+static int ft_issign_for_atoi(int c, int *sign)
+{
+	if (ft_issign(c))
+	{
+		if (c == '-')
+			*sign *= -1;
+		return (1);
+	}
+	return (0);
+}
 
 int	ft_atoi(const char *str, int *result)
 {
@@ -24,13 +35,8 @@ int	ft_atoi(const char *str, int *result)
 	result_tmp = 0;
 	while (ft_isspace(*str))
 		str++;
-	if (*str == '-' || *str == '+')
-	{
-		if (*str++ == '-')
-			sign *= -1;
-		if (!ft_isdigit(*str))
-			return (1);
-	}
+	if (ft_issign_for_atoi(*str, &sign))
+		str++;
 	while (ft_isdigit(*str))
 	{
 		result_tmp = 10 * result_tmp + (sign * (*str - '0'));
