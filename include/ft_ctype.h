@@ -6,12 +6,12 @@
 /*   By: yeongo <yeongo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 17:21:27 by yeongo            #+#    #+#             */
-/*   Updated: 2023/02/03 17:30:04 by yeongo           ###   ########.fr       */
+/*   Updated: 2023/02/03 17:46:17 by yeongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_CTYPE_H
-#define FT_CTYPE_H
+# define FT_CTYPE_H
 
 int		ft_isalpha(int c);
 int		ft_isdigit(int c);
