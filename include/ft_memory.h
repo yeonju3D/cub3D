@@ -6,7 +6,7 @@
 /*   By: yeongo <yeongo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/28 20:39:55 by yeongo            #+#    #+#             */
-/*   Updated: 2023/02/03 17:46:51 by yeongo           ###   ########.fr       */
+/*   Updated: 2023/02/03 18:00:23 by yeongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 # include <stddef.h>
 
 void	*ft_calloc(size_t count, size_t size);
-void	ft_bzero(void *s, size_t n);
 void	ft_free_str(char **str);
 void	ft_free_strings(char ***strings);
 void	ft_free_void(void ***ptr, int index_max);
