@@ -6,7 +6,7 @@
 /*   By: yeongo <yeongo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 11:56:41 by yeongo            #+#    #+#             */
-/*   Updated: 2023/02/02 10:57:29 by yeongo           ###   ########.fr       */
+/*   Updated: 2023/04/21 21:43:31 by yeongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ static int	ft_issep(char c, char const *sep)
 	return (0);
 }
 
-static int	valid_check(size_t *start, size_t *end, char const *s1, \
-		char const *set)
+static int	valid_check(size_t *start, size_t *end, \
+			char const *s1, char const *set)
 {
 	while (s1[*start] && ft_issep(s1[*start], set))
 		(*start)++;
@@ -66,15 +66,15 @@ static char	*fill_result(size_t start, size_t end, char *result, char const *s1)
 char	*ft_strtrim(char const *s1, char const *set)
 {
 	char	*result;
-	size_t	start;
-	size_t	end;
+	size_t	index_start;
+	size_t	index_end;
 
-	start = 0;
-	end = ft_strlen(s1) - 1;
-	if (!valid_check(&start, &end, s1, set))
+	index_start = 0;
+	index_end = ft_strlen(s1) - 1;
+	if (!valid_check(&index_start, &index_end, s1, set))
 		return (empty_string());
-	result = malloc(sizeof(char) * (end - start + 2));
+	result = malloc(sizeof(char) * (index_end - index_start + 2));
 	if (result == NULL)
 		return (NULL);
-	return (fill_result(start, end, result, s1));
+	return (fill_result(index_start, index_end, result, s1));
 }

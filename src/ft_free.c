@@ -6,11 +6,11 @@
 /*   By: yeongo <yeongo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 22:06:44 by yeongo            #+#    #+#             */
-/*   Updated: 2023/02/02 10:54:48 by yeongo           ###   ########.fr       */
+/*   Updated: 2023/04/21 21:37:31 by yeongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_memory.h"
+#include <stdlib.h>
 
 void	ft_free_str(char **str)
 {
@@ -46,8 +46,10 @@ void	ft_free_void(void ***ptr, int index_max)
 		while (--index_max >= 0)
 		{
 			if ((*ptr)[index_max] != NULL)
+			{
 				free((*ptr)[index_max]);
-			(*ptr)[index_max] = NULL;
+				(*ptr)[index_max] = NULL;
+			}
 		}
 		free(*ptr);
 		*ptr = NULL;

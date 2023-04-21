@@ -6,13 +6,12 @@
 /*   By: yeongo <yeongo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 17:37:08 by yeongo            #+#    #+#             */
-/*   Updated: 2023/02/02 10:56:59 by yeongo           ###   ########.fr       */
+/*   Updated: 2023/04/21 21:41:21 by yeongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_string.h"
 #include "ft_memory.h"
-#include <stdlib.h>
 
 char	*ft_strjoin(char const *s1, char const *s2)
 {

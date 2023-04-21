@@ -6,7 +6,7 @@
 #    By: yeongo <yeongo@student.42seoul.kr>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/07 17:00:59 by yeongo            #+#    #+#              #
-#    Updated: 2023/02/02 11:36:46 by yeongo           ###   ########.fr        #
+#    Updated: 2023/04/21 21:46:36 by yeongo           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,60 +26,60 @@ SRC_DIR			:=	./src/
 OBJ_DIR			:=	./.obj/
 CACHE_DIR		:=	./.cache/
 
-SRC_FILES		:=	$(addsuffix .c,			\
-					ft_isalpha				\
-					ft_isdigit				\
-					ft_issign				\
-					ft_isalnum				\
-					ft_isascii				\
-					ft_isprint				\
-					ft_toupper				\
-					ft_tolower				\
-					ft_atoi					\
-					ft_itoa					\
-					ft_putchar_fd			\
-					ft_putstr_fd			\
-					ft_putnbr_fd			\
-					ft_putendl_fd			\
-					ft_strlen				\
-					ft_strncmp				\
-					ft_strlcpy				\
-					ft_strlcat				\
-					ft_strchr				\
-					ft_strrchr				\
-					ft_strnstr				\
-					ft_strdup				\
-					ft_strjoin				\
-					ft_substr				\
-					ft_strtrim				\
-					ft_strmapi				\
-					ft_striteri				\
-					ft_str_append			\
-					ft_split				\
-					ft_calloc				\
-					ft_bzero				\
-					ft_memset				\
-					ft_memcpy				\
-					ft_memmove				\
-					ft_memcmp				\
-					ft_memchr				\
-					ft_free					\
-					check_leaks				\
-					ft_lstnew				\
-					ft_lstsize				\
-					ft_lstlast				\
-					ft_lstadd_front			\
-					ft_lstadd_back			\
-					ft_lstdelone			\
-					ft_lstclear				\
-					ft_lstiter				\
-					ft_lstmap				\
-					get_next_line_utils		\
-					get_next_line			\
-					print_number			\
-					print_text				\
-					ft_printf				\
-					ft_abs					\
+SRC_FILES		:=	$(addsuffix .c,				\
+						ft_isalpha				\
+						ft_isdigit				\
+						ft_issign				\
+						ft_isalnum				\
+						ft_isascii				\
+						ft_isprint				\
+						ft_toupper				\
+						ft_tolower				\
+						ft_atoi					\
+						ft_itoa					\
+						ft_putchar_fd			\
+						ft_putstr_fd			\
+						ft_putnbr_fd			\
+						ft_putendl_fd			\
+						ft_strlen				\
+						ft_strncmp				\
+						ft_strlcpy				\
+						ft_strlcat				\
+						ft_strchr				\
+						ft_strrchr				\
+						ft_strnstr				\
+						ft_strdup				\
+						ft_strjoin				\
+						ft_substr				\
+						ft_strtrim				\
+						ft_strmapi				\
+						ft_striteri				\
+						ft_str_append			\
+						ft_split				\
+						ft_calloc				\
+						ft_bzero				\
+						ft_memset				\
+						ft_memcpy				\
+						ft_memmove				\
+						ft_memcmp				\
+						ft_memchr				\
+						ft_free					\
+						check_leaks				\
+						ft_lstnew				\
+						ft_lstsize				\
+						ft_lstlast				\
+						ft_lstadd_front			\
+						ft_lstadd_back			\
+						ft_lstdelone			\
+						ft_lstclear				\
+						ft_lstiter				\
+						ft_lstmap				\
+						get_next_line_utils		\
+						get_next_line			\
+						print_number			\
+						print_text				\
+						ft_printf				\
+						ft_abs					\
 					)
 OBJ_FILES		:=	$(SRC_FILES:.c=.o)
 JSON_FILES		:=	compile_commands.json

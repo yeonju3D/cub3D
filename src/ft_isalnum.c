@@ -6,11 +6,11 @@
 /*   By: yeongo <yeongo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 11:04:11 by yeongo            #+#    #+#             */
-/*   Updated: 2023/02/02 10:54:53 by yeongo           ###   ########.fr       */
+/*   Updated: 2023/04/21 21:37:43 by yeongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_ctype.h"
 
 int	ft_isalnum(int c)
 {
