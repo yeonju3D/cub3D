@@ -6,18 +6,14 @@
 /*   By: yeongo <yeongo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 21:23:18 by yeongo            #+#    #+#             */
-/*   Updated: 2023/06/08 22:06:33 by yeongo           ###   ########.fr       */
+/*   Updated: 2023/06/08 22:17:06 by yeongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_struct.h"
-#include <libft.h>
+#include "error.h"
 #include <ft_string.h>
-#include <unistd.h>
-#include <stdio.h>
-#include <string.h>
 #include <sys/fcntl.h>
-#include <sys/errno.h>
 
 int	valid_map_format(char *map_path)
 {
@@ -35,19 +31,6 @@ int	check_valid_argument(int ac, char **av)
 	if (!valid_map_format(av[1]))
 		return (0);
 	return (1);
-}
-
-void	ft_puterr(char *err)
-{
-	ft_putendl_fd(err, STDERR_FILENO);
-}
-
-void	syscall_err(void)
-{
-	int	errno_bak;
-
-	errno_bak = errno;
-	perror(strerror(errno_bak));
 }
 
 int	open_file(char *map_path)
