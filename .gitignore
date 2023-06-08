@@ -1,0 +1,11 @@
+.DS_Store
+.vscode
+.cache
+.obj
+*.o
+*.a
+*.out
+*.json
+*.tgz
+cub3D
+Makefile_*

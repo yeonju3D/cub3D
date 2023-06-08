@@ -6,9 +6,11 @@
 /*   By: yeongo <yeongo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 21:23:18 by yeongo            #+#    #+#             */
-/*   Updated: 2023/06/07 19:32:39 by yeongo           ###   ########.fr       */
+/*   Updated: 2023/06/07 21:55:21 by yeongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include <libft.h>
 
 int	valid_map_format(char *map_path)
 {
