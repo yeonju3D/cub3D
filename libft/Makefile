@@ -6,7 +6,7 @@
 #    By: yeongo <yeongo@student.42seoul.kr>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/07 17:00:59 by yeongo            #+#    #+#              #
-#    Updated: 2023/04/21 21:46:36 by yeongo           ###   ########.fr        #
+#    Updated: 2023/06/08 18:03:31 by yeongo           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ ARFLAGS			:=	rcus
 RM				:=	rm -rf
 
 HEADER			:=	./include/
-SRC_DIR			:=	./src/
+SRC_DIR			:=	./srcs/
 OBJ_DIR			:=	./.obj/
 CACHE_DIR		:=	./.cache/
 
