@@ -1,29 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.c                                            :+:      :+:    :+:   */
+/*   ft_enum.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yeongo <yeongo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/08 22:14:29 by yeongo            #+#    #+#             */
-/*   Updated: 2023/06/09 13:32:40 by yeongo           ###   ########.fr       */
+/*   Created: 2023/06/09 16:36:25 by yeongo            #+#    #+#             */
+/*   Updated: 2023/06/09 16:37:13 by yeongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <libft.h>
-#include <unistd.h>
-#include <stdio.h>
-#include <string.h>
-#include <sys/errno.h>
+#ifndef FT_ENUM_H
+# define FT_ENUM_H
 
-void	ft_puterr(char *err)
+enum e_direction
 {
-	ft_putendl_fd(err, STDERR_FILENO);
-}
+	NO,
+	SO,
+	WE,
+	EA,
+	FLOOR,
+	CEILING,
+	DIRECTION
+};
 
-void	syscall_err(void)
+enum e_bool
 {
-	const int	errno_bak = errno;
+	FALSE,
+	TRUE
+};
 
-	perror(strerror(errno_bak));
-}
+enum e_result
+{
+	FAIL,
+	SUCCESS
+};
+
+#endif

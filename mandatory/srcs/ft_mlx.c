@@ -1,29 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.c                                            :+:      :+:    :+:   */
+/*   ft_mlx.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yeongo <yeongo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/08 22:14:29 by yeongo            #+#    #+#             */
-/*   Updated: 2023/06/09 13:32:40 by yeongo           ###   ########.fr       */
+/*   Created: 2023/06/09 17:49:20 by yeongo            #+#    #+#             */
+/*   Updated: 2023/06/09 18:22:18 by yeongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <libft.h>
-#include <unistd.h>
-#include <stdio.h>
-#include <string.h>
-#include <sys/errno.h>
+#include "ft_struct.h"
+#include <stddef.h>
+#include <mlx.h>
 
-void	ft_puterr(char *err)
+int	ft_mlx_new_window(t_cub3d *cub3d, int size_x, int size_y)
 {
-	ft_putendl_fd(err, STDERR_FILENO);
-}
-
-void	syscall_err(void)
-{
-	const int	errno_bak = errno;
-
-	perror(strerror(errno_bak));
+	cub3d->win_ptr = mlx_new_window(cub3d->mlx_ptr, \
+		size_x, size_y, P_NAME);
+	if (cub3d->win_ptr == NULL)
+		return (0);
+	return (1);
 }

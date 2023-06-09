@@ -6,17 +6,23 @@
 /*   By: yeongo <yeongo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 21:35:15 by yeongo            #+#    #+#             */
-/*   Updated: 2023/06/07 19:17:23 by yeongo           ###   ########.fr       */
+/*   Updated: 2023/06/09 18:22:02 by yeongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_STRUCT_H
 # define FT_STRUCT_H
 
-typedef struct s_map	t_map;
-typedef struct s_info	t_info;
+# include "ft_enum.h"
 
-struct s_tmp
+# define P_NAME "cub3D"
+
+typedef struct s_texture	t_texture;
+typedef struct s_info		t_info;
+typedef struct s_map		t_map;
+typedef struct s_cub3d		t_cub3d;
+
+struct s_texture
 {
 	char	*identifier;
 	char	*img_path;
@@ -25,8 +31,8 @@ struct s_tmp
 
 struct s_info
 {
-	int		direction;
-	char	*pixel_addr[4];
+	int		char_dir;
+	char	*pixel_addr[DIRECTION];
 };
 
 struct s_map
@@ -35,24 +41,10 @@ struct s_map
 	char	**board;
 };
 
-enum e_direction
+struct s_cub3d
 {
-	NO,
-	SO,
-	WE,
-	EA
-};
-
-enum e_bool
-{
-	FALSE,
-	TRUE
-};
-
-enum e_result
-{
-	FAIL,
-	SUCCESS
+	void	*mlx_ptr;
+	void	*win_ptr;
 };
 
 #endif
