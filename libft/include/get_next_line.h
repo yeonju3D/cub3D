@@ -6,7 +6,7 @@
 /*   By: yeongo <yeongo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 18:10:31 by yeongo            #+#    #+#             */
-/*   Updated: 2023/01/05 07:10:08 by yeongo           ###   ########.fr       */
+/*   Updated: 2023/06/11 16:03:27 by yeongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ struct s_line
 	size_t	size;
 };
 
-enum e_result
+enum e_read_result
 {
 	SUCCESS		= 0,
 	ERROR		= -1,
