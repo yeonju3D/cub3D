@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_struct.h                             :+:      :+:    :+:   */
+/*   gnl_struct.h                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yeongo <yeongo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_STRUCT_H
-# define GET_NEXT_LINE_STRUCT_H
+#ifndef GNL_STRUCT_H
+# define GNL_STRUCT_H
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 1024
@@ -19,19 +19,19 @@
 
 # include <unistd.h>
 
-typedef struct s_buffer	t_buffer;
-typedef struct s_line	t_line;
+typedef struct s_gnl_buffer	t_gnl_buffer;
+typedef struct s_gnl_line	t_gnl_line;
 
-struct s_buffer
+struct s_gnl_buffer
 {
-	int			fd;
-	char		buffer[BUFFER_SIZE + 1];
-	ssize_t		read_size;
-	ssize_t		pos;
-	t_buffer	*next;
+	int				fd;
+	char			buffer[BUFFER_SIZE + 1];
+	ssize_t			read_size;
+	ssize_t			pos;
+	t_gnl_buffer	*next;
 };
 
-struct s_line
+struct s_gnl_line
 {
 	char	*line;
 	size_t	len;

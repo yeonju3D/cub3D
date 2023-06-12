@@ -1,19 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_enum.h                               :+:      :+:    :+:   */
+/*   gnl_enum.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yeongo <yeongo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 11:00:45 by yeongo            #+#    #+#             */
-/*   Updated: 2023/06/12 11:01:43 by yeongo           ###   ########.fr       */
+/*   Updated: 2023/06/12 11:07:55 by yeongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_ENUM_H
-# define GET_NEXT_LINE_ENUM_H
+#ifndef GNL_ENUM_H
+# define GNL_ENUM_H
 
-enum e_read_result
+enum e_result
 {
 	SUCCESS		= 0,
 	ERROR		= -1,

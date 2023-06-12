@@ -6,15 +6,16 @@
 /*   By: yeongo <yeongo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 17:42:14 by yeongo            #+#    #+#             */
-/*   Updated: 2023/06/12 11:03:48 by yeongo           ###   ########.fr       */
+/*   Updated: 2023/06/12 11:12:41 by yeongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_string.h"
 #include "get_next_line.h"
-#include "get_next_line_enum.h"
+#include "gnl_enum.h"
+#include <stdlib.h>
 
-static int	init_tmp_line(t_line *line)
+static int	init_tmp_line(t_gnl_line *line)
 {
 	line->line = malloc(sizeof(char));
 	if (line->line == NULL)
@@ -24,7 +25,7 @@ static int	init_tmp_line(t_line *line)
 	return (SUCCESS);
 }
 
-static int	append_to_line(t_line *line, char c)
+static int	append_to_line(t_gnl_line *line, char c)
 {
 	char	*tmp;
 
@@ -42,10 +43,10 @@ static int	append_to_line(t_line *line, char c)
 	return (SUCCESS);
 }
 
-static int	get_line(t_buffer **buf, t_line *line, int fd)
+static int	get_line(t_gnl_buffer **buf, t_gnl_line *line, int fd)
 {
-	t_buffer	*cur;
-	char		c;
+	t_gnl_buffer	*cur;
+	char			c;
 
 	cur = get_node_or_null(buf, fd);
 	if (cur == NULL)
@@ -67,7 +68,7 @@ static int	get_line(t_buffer **buf, t_line *line, int fd)
 	return (SUCCESS);
 }
 
-static char	*remove_margine(t_line *line)
+static char	*remove_margine(t_gnl_line *line)
 {
 	char	*result;
 
@@ -83,9 +84,9 @@ static char	*remove_margine(t_line *line)
 
 char	*get_next_line(int fd)
 {
-	static t_buffer	*lst;
-	t_line			tmp_line;
-	char			*read_line;
+	static t_gnl_buffer	*lst;
+	t_gnl_line			tmp_line;
+	char				*read_line;
 
 	if (read(fd, NULL, 0) == -1)
 	{

@@ -6,18 +6,18 @@
 /*   By: yeongo <yeongo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 18:10:34 by yeongo            #+#    #+#             */
-/*   Updated: 2023/06/12 11:04:00 by yeongo           ###   ########.fr       */
+/*   Updated: 2023/06/12 11:10:59 by yeongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_memory.h"
 #include "get_next_line.h"
-#include "get_next_line_enum.h"
+#include "gnl_enum.h"
 
-void	ft_lst_remove_if(t_buffer **lst, int fd)
+void	ft_lst_remove_if(t_gnl_buffer **lst, int fd)
 {
-	t_buffer	*tmp;
-	t_buffer	*cur;
+	t_gnl_buffer	*tmp;
+	t_gnl_buffer	*cur;
 
 	if (*lst == NULL)
 		return ;
@@ -42,10 +42,10 @@ void	ft_lst_remove_if(t_buffer **lst, int fd)
 	return ;
 }
 
-t_buffer	*get_node_or_null(t_buffer **lst, int fd)
+t_gnl_buffer	*get_node_or_null(t_gnl_buffer **lst, int fd)
 {
-	t_buffer	*cur;
-	t_buffer	*new_node;
+	t_gnl_buffer	*cur;
+	t_gnl_buffer	*new_node;
 
 	cur = *lst;
 	while (cur != NULL)
@@ -56,7 +56,7 @@ t_buffer	*get_node_or_null(t_buffer **lst, int fd)
 			break ;
 		cur = cur->next;
 	}
-	new_node = ft_calloc(1, sizeof(t_buffer));
+	new_node = ft_calloc(1, sizeof(t_gnl_buffer));
 	if (new_node == NULL)
 		return (NULL);
 	new_node->fd = fd;
@@ -67,7 +67,7 @@ t_buffer	*get_node_or_null(t_buffer **lst, int fd)
 	return (new_node);
 }
 
-char	get_char(t_buffer *buf)
+char	get_char(t_gnl_buffer *buf)
 {
 	if (buf->pos == buf->read_size)
 	{
