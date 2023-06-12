@@ -6,12 +6,13 @@
 /*   By: yeongo <yeongo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 18:10:34 by yeongo            #+#    #+#             */
-/*   Updated: 2023/04/21 21:45:53 by yeongo           ###   ########.fr       */
+/*   Updated: 2023/06/12 11:04:00 by yeongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_memory.h"
 #include "get_next_line.h"
+#include "get_next_line_enum.h"
 
 void	ft_lst_remove_if(t_buffer **lst, int fd)
 {

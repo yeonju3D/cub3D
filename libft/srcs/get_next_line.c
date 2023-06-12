@@ -6,12 +6,13 @@
 /*   By: yeongo <yeongo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 17:42:14 by yeongo            #+#    #+#             */
-/*   Updated: 2023/04/21 21:45:30 by yeongo           ###   ########.fr       */
+/*   Updated: 2023/06/12 11:03:48 by yeongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_string.h"
 #include "get_next_line.h"
+#include "get_next_line_enum.h"
 
 static int	init_tmp_line(t_line *line)
 {
