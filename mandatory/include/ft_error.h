@@ -1,55 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_enum.h                                          :+:      :+:    :+:   */
+/*   ft_error.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yeongo <yeongo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/09 16:36:25 by yeongo            #+#    #+#             */
-/*   Updated: 2023/06/12 20:15:46 by yeongo           ###   ########.fr       */
+/*   Created: 2023/06/08 22:16:05 by yeongo            #+#    #+#             */
+/*   Updated: 2023/06/12 13:18:15 by yeongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_ENUM_H
-# define FT_ENUM_H
+#ifndef FT_ERROR_H
+# define FT_ERROR_H
 
-enum e_direction
-{
-	NO,
-	SO,
-	WE,
-	EA,
-	FL,
-	CE,
-	DIR,
-};
-
-enum e_wall
-{
-	NORTH,
-	SOUTH,
-	WEST,
-	EAST,
-	WALL
-};
-
-enum e_level
-{
-	FLOOR,
-	CEILING,
-	LEVEL
-};
-
-enum e_bool
-{
-	FALSE,
-	TRUE
-};
-
-enum e_return
-{
-	FAIL,
-	SUCCESS
-};
+void	ft_puterr(char *err);
+void	syscall_err(void);
 
 #endif
