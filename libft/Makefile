@@ -6,7 +6,7 @@
 #    By: yeongo <yeongo@student.42seoul.kr>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/07 17:00:59 by yeongo            #+#    #+#              #
-#    Updated: 2023/06/08 18:03:31 by yeongo           ###   ########.fr        #
+#    Updated: 2023/06/13 00:00:49 by yeongo           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,9 +27,10 @@ OBJ_DIR			:=	./.obj/
 CACHE_DIR		:=	./.cache/
 
 SRC_FILES		:=	$(addsuffix .c,				\
+						ft_issep				\
+						ft_issign				\
 						ft_isalpha				\
 						ft_isdigit				\
-						ft_issign				\
 						ft_isalnum				\
 						ft_isascii				\
 						ft_isprint				\
@@ -56,6 +57,7 @@ SRC_FILES		:=	$(addsuffix .c,				\
 						ft_striteri				\
 						ft_str_append			\
 						ft_split				\
+						ft_split_set			\
 						ft_calloc				\
 						ft_bzero				\
 						ft_memset				\

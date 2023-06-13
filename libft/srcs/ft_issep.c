@@ -1,20 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_split.h                                         :+:      :+:    :+:   */
+/*   ft_issep.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yeongo <yeongo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/28 20:41:31 by yeongo            #+#    #+#             */
-/*   Updated: 2023/06/13 00:05:33 by yeongo           ###   ########.fr       */
+/*   Created: 2023/06/12 23:59:12 by yeongo            #+#    #+#             */
+/*   Updated: 2023/06/12 23:59:15 by yeongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_SPLIT_H
-# define FT_SPLIT_H
-
-int		ft_res_size(char const *str, char sep);
-char	**ft_split(char const *s, char c);
-char	**ft_split_set(char const *s, char *charset);
-
-#endif
+int	ft_issep(char c, char const *sep)
+{
+	while (*sep)
+	{
+		if (*sep == c)
+			return (1);
+		sep++;
+	}
+	return (0);
+}

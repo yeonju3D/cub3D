@@ -6,23 +6,12 @@
 /*   By: yeongo <yeongo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 11:56:41 by yeongo            #+#    #+#             */
-/*   Updated: 2023/04/21 21:43:31 by yeongo           ###   ########.fr       */
+/*   Updated: 2023/06/12 23:59:47 by yeongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_string.h"
 #include <stdlib.h>
-
-static int	ft_issep(char c, char const *sep)
-{
-	while (*sep)
-	{
-		if (*sep == c)
-			return (1);
-		sep++;
-	}
-	return (0);
-}
 
 static int	valid_check(size_t *start, size_t *end, \
 			char const *s1, char const *set)
