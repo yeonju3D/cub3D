@@ -6,7 +6,7 @@
 /*   By: yeongo <yeongo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 21:23:18 by yeongo            #+#    #+#             */
-/*   Updated: 2023/06/13 10:51:36 by yeongo           ###   ########.fr       */
+/*   Updated: 2023/06/14 20:52:34 by yeongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,20 @@ int	check_valid_argument(int ac, char **av)
 	return (SUCCESS);
 }
 
+void	init_map_data(t_map *map)
+{
+	int	index;
+
+	map->info.char_dir = NONE;
+	index = 0;
+	while (index < DIR)
+	{
+		map->info.pixel_addr[index] = NULL;
+		index++;
+	}
+	map->board = NULL;
+}
+
 int	open_file(char *map_path)
 {
 	int	fd;
@@ -90,8 +104,6 @@ int	is_valid_rgb_data(char **texture)
 {
 	int	count;
 	int	index_char;
-	int	data;
-	int	in_range;
 
 	count = 1;
 	while (texture[count])
@@ -103,9 +115,6 @@ int	is_valid_rgb_data(char **texture)
 				return (FAIL);
 			index_char++;
 		}
-		in_range = ft_atoi(texture[count], &data);
-		if (!in_range || data < 0 || 255 < data)
-			return (FAIL);
 		count++;
 	}
 	if (count != 4)
@@ -115,17 +124,10 @@ int	is_valid_rgb_data(char **texture)
 
 int	is_valid_texture(char **texture, int id)
 {
-	if (id < FL)
-	{
-		if (!is_valid_file_format(texture[1], ".xpm"))
-			return (FAIL);
-	}
-	else
-	{
-		if (!is_valid_rgb_data(texture))
-			return (FAIL);
-	}
-	return (SUCCESS);
+	return ((id < FL \
+			&& is_valid_file_format(texture[1], ".xpm")) \
+		|| ((FL <= id && id < DIR) \
+			&& is_valid_rgb_data(texture)));
 }
 
 int	set_info_image(t_cub3d *cub3d, t_info *info, char **texture, int id)
@@ -143,18 +145,42 @@ int	set_info_image(t_cub3d *cub3d, t_info *info, char **texture, int id)
 	return (SUCCESS);
 }
 
-int	set_info_rgb(t_info *info, char **texture, int id)
+void	colored_image(unsigned int *pixel_addr, unsigned int color)
 {
-	int	index_rgb;
-	int	rgb[3];
+	unsigned int	index;
+	unsigned int	max_pixel;
+
+	index = 0;
+	max_pixel = WIN_HEIGHT * WIN_WIDTH;
+	while (index < max_pixel)
+	{
+		*(pixel_addr + index) = color;
+		index++;
+	}
+}
+
+int	set_info_rgb(t_cub3d *cub3d, t_info *info, char **texture, int id)
+{
+	int				index_rgb;
+	int				rgb[3];
+	int				in_range;
+	unsigned int	color;
+	void			*img_ptr;
 
 	index_rgb = 0;
 	while (index_rgb < 3)
 	{
-		ft_atoi(texture[index_rgb + 1], &rgb[index_rgb]);
+		in_range = ft_atoi(texture[index_rgb + 1], &rgb[index_rgb]);
+		if (!in_range \
+			|| (rgb[index_rgb] < 0 || 255 < rgb[index_rgb]))
+			return (FAIL);
 		index_rgb++;
 	}
-	info->rgb[id] = rgb[0] << 16 | rgb[1] << 8 | rgb[2];
+	color = (unsigned int)(rgb[0] << 16 | rgb[1] << 8 | rgb[2]);
+	ft_mlx_new_image(cub3d->mlx_ptr, &img_ptr, WIN_HEIGHT, WIN_HEIGHT);
+	ft_mlx_get_data_addr(cub3d->mlx_ptr, &info->pixel_addr[id]);
+	mlx_destroy_image(cub3d->mlx_ptr, img_ptr);
+	colored_image(info->pixel_addr[id], color);
 	return (SUCCESS);
 }
 
@@ -162,21 +188,32 @@ int	set_info_texture(t_cub3d *cub3d, t_info *info, char **texture)
 {
 	const char	*surface_id[7] = {"NO", "SO", "WE", "EA", \
 								"F", "C", NULL};
-	int			id;
 	int			result;
+	int			id;
 
 	id = is_identifier(texture[0], surface_id);
-	if (id != DIR)
-		if (!is_valid_texture(texture, id))
-			id = DIR;
+	if (!is_valid_texture(texture, id))
+		id = DIR;
 	result = FAIL;
 	if (NO <= id && id < FL)
 		result = set_info_image(cub3d, info, texture, id);
 	else if (FL <= id && id < DIR)
-		result = set_info_rgb(info, texture, id - WALL);
+		result = set_info_rgb(cub3d, info, texture, id);
 	ft_free_strings(&texture);
-	if (id == DIR || result == FAIL)
-		return (FAIL);
+	return (result);
+}
+
+int	check_all_textures(t_info *info)
+{
+	int	index;
+
+	index = 0;
+	while (index < DIR)
+	{
+		if (!info->pixel_addr[index])
+			return (FAIL);
+		index++;
+	}
 	return (SUCCESS);
 }
 
@@ -203,8 +240,10 @@ int	get_texture(t_cub3d *cub3d, int fd)
 			return (FAIL);
 		texture_count++;
 	}
-	return (SUCCESS);
+	return (check_all_textures(info));
 }
+
+int	get_board(t_map *map, int fd);
 
 int	parse_map(t_cub3d *cub3d, char *map_path)
 {
@@ -213,6 +252,8 @@ int	parse_map(t_cub3d *cub3d, char *map_path)
 	if (fd == -1)
 		return (FAIL);
 	if (!get_texture(cub3d, fd))
+		return (FAIL);
+	if (!get_board(&cub3d->map, fd))
 		return (FAIL);
 	return (SUCCESS);
 }
@@ -223,6 +264,7 @@ int	main(int ac, char **av)
 
 	if (!check_valid_argument(ac, av))
 		return (1);
+	init_map_data(&cub3d.map);
 	if (!parse_map(&cub3d, av[1]))
 		return (1);
 	return (0);

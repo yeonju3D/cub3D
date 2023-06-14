@@ -6,14 +6,14 @@
 /*   By: yeongo <yeongo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 16:36:25 by yeongo            #+#    #+#             */
-/*   Updated: 2023/06/12 20:15:46 by yeongo           ###   ########.fr       */
+/*   Updated: 2023/06/14 20:45:42 by yeongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_ENUM_H
 # define FT_ENUM_H
 
-enum e_direction
+enum e_texture
 {
 	NO,
 	SO,
@@ -21,16 +21,17 @@ enum e_direction
 	EA,
 	FL,
 	CE,
-	DIR,
+	DIR
 };
 
-enum e_wall
+enum e_direction
 {
 	NORTH,
 	SOUTH,
 	WEST,
 	EAST,
-	WALL
+	WALL,
+	NONE
 };
 
 enum e_level
