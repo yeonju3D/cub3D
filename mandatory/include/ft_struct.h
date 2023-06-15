@@ -6,7 +6,7 @@
 /*   By: yeongo <yeongo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 21:35:15 by yeongo            #+#    #+#             */
-/*   Updated: 2023/06/14 20:37:07 by yeongo           ###   ########.fr       */
+/*   Updated: 2023/06/15 22:48:19 by yeongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define FT_STRUCT_H
 
 # include "ft_enum.h"
+# include <unistd.h>
 
 # define P_NAME "cub3D"
 # define WIN_HEIGHT 5120
@@ -33,6 +34,9 @@ struct s_map
 {
 	t_info	info;
 	char	**board;
+	int		board_size;
+	int		board_capacity;
+	int		max_length;
 };
 
 struct s_cub3d
