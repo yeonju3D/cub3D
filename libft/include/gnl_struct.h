@@ -34,7 +34,7 @@ struct s_gnl_buffer
 struct s_gnl_line
 {
 	char	*line;
-	size_t	len;
+	size_t	length;
 	size_t	size;
 };
 

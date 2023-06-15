@@ -6,7 +6,7 @@
 /*   By: yeongo <yeongo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 18:10:34 by yeongo            #+#    #+#             */
-/*   Updated: 2023/06/12 11:10:59 by yeongo           ###   ########.fr       */
+/*   Updated: 2023/06/15 21:34:58 by yeongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ char	get_char(t_gnl_buffer *buf)
 	{
 		buf->read_size = read(buf->fd, buf->buffer, BUFFER_SIZE);
 		if (buf->read_size == -1)
-			return (ERROR);
+			return (FAIL);
 		buf->pos = 0;
 	}
 	return (buf->buffer[buf->pos++]);

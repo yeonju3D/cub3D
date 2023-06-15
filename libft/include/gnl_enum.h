@@ -6,7 +6,7 @@
 /*   By: yeongo <yeongo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 11:00:45 by yeongo            #+#    #+#             */
-/*   Updated: 2023/06/12 11:07:55 by yeongo           ###   ########.fr       */
+/*   Updated: 2023/06/15 21:35:05 by yeongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,8 @@
 
 enum e_result
 {
-	SUCCESS		= 0,
-	ERROR		= -1,
-	READ_EOF	= -2
+	FAIL,
+	SUCCESS
 };
 
 #endif

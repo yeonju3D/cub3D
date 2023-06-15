@@ -6,7 +6,7 @@
 /*   By: yeongo <yeongo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 11:56:41 by yeongo            #+#    #+#             */
-/*   Updated: 2023/06/12 23:59:47 by yeongo           ###   ########.fr       */
+/*   Updated: 2023/06/15 17:41:57 by yeongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,8 @@ static int	valid_check(size_t *start, size_t *end, \
 		(*start)++;
 	if (*start == ft_strlen(s1))
 		return (0);
-	while (*end >= 0 && ft_issep(s1[*end], set))
+	while (ft_issep(s1[*end], set))
 		(*end)--;
-	if (*end < 0)
-		(*end)++;
 	return (1);
 }
 
