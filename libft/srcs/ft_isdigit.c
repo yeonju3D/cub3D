@@ -6,11 +6,13 @@
 /*   By: yeongo <yeongo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 11:01:00 by yeongo            #+#    #+#             */
-/*   Updated: 2022/07/07 15:49:31 by yeongo           ###   ########.fr       */
+/*   Updated: 2023/06/21 20:54:00 by yeongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ft_isdigit(int c)
+#include <stdbool.h>
+
+bool	ft_isdigit(int c)
 {
 	return ('0' <= c && c <= '9');
 }

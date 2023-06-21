@@ -6,12 +6,13 @@
 /*   By: yeongo <yeongo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 11:56:30 by yeongo            #+#    #+#             */
-/*   Updated: 2023/06/13 00:11:37 by yeongo           ###   ########.fr       */
+/*   Updated: 2023/06/21 20:59:07 by yeongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_memory.h"
 #include <stdlib.h>
+#include <stdbool.h>
 
 int	ft_res_size(char const *str, char sep)
 {
@@ -31,7 +32,7 @@ int	ft_res_size(char const *str, char sep)
 	return (size);
 }
 
-static int	ft_res_alloc(char ***result, int m_size, char const *str, char sep)
+static bool	ft_res_alloc(char ***result, int m_size, char const *str, char sep)
 {
 	int	index;
 	int	length;
@@ -52,12 +53,12 @@ static int	ft_res_alloc(char ***result, int m_size, char const *str, char sep)
 		if ((*result)[x] == NULL)
 		{
 			ft_free_strings(result);
-			return (0);
+			return (false);
 		}
 		x++;
 	}
 	(*result)[x] = NULL;
-	return (1);
+	return (true);
 }
 
 static void	ft_rescpy(char **result, int m_size, char const *str, char sep)
@@ -93,7 +94,7 @@ char	**ft_split(char const *s, char c)
 	result = malloc(sizeof(char *) * (m_size + 1));
 	if (result == NULL)
 		return (NULL);
-	if (!ft_res_alloc(&result, m_size, s, c))
+	if (ft_res_alloc(&result, m_size, s, c) == false)
 		return (NULL);
 	ft_rescpy(result, m_size, s, c);
 	return (result);

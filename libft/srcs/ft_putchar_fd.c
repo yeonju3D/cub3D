@@ -6,13 +6,13 @@
 /*   By: yeongo <yeongo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 20:15:28 by yeongo            #+#    #+#             */
-/*   Updated: 2022/07/07 16:02:03 by yeongo           ###   ########.fr       */
+/*   Updated: 2023/06/21 20:57:29 by yeongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 
-void	ft_putchar_fd(char c, int fd)
+void	ft_putchar_fd(const char c, const int fd)
 {
-	write(fd, &c, 1);
+	write((int)fd, &c, sizeof(c));
 }

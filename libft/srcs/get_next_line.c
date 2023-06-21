@@ -6,7 +6,7 @@
 /*   By: yeongo <yeongo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 17:42:14 by yeongo            #+#    #+#             */
-/*   Updated: 2023/06/15 22:16:24 by yeongo           ###   ########.fr       */
+/*   Updated: 2023/06/21 21:07:53 by yeongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,20 @@
 #include "get_next_line.h"
 #include "gnl_enum.h"
 #include <stdlib.h>
+#include <stdbool.h>
 
-static int	init_tmp_line(t_gnl_line *line)
+static bool	init_tmp_line(t_gnl_line *line)
 {
 	line->line = malloc(sizeof(char));
 	if (line->line == NULL)
-		return (FAIL);
+		return (false);
 	line->line[0] = '\0';
 	line->length = 0;
 	line->size = 1;
-	return (SUCCESS);
+	return (true);
 }
 
-static int	append_to_line(t_gnl_line *line, char c)
+static bool	append_to_line(t_gnl_line *line, char c)
 {
 	char	*tmp;
 
@@ -34,24 +35,24 @@ static int	append_to_line(t_gnl_line *line, char c)
 	{
 		tmp = malloc(sizeof(char) * (line->size * 2));
 		if (tmp == NULL)
-			return (FAIL);
+			return (false);
 		ft_memmove(tmp, line->line, line->length);
 		free(line->line);
 		line->line = tmp;
 		line->size *= 2;
 	}
 	line->line[line->length++] = c;
-	return (SUCCESS);
+	return (true);
 }
 
-static int	get_line(t_gnl_buffer **buf, t_gnl_line *line, int fd)
+static bool	get_line(t_gnl_buffer **buf, t_gnl_line *line, int fd)
 {
 	t_gnl_buffer	*cur;
 	char			c;
 
 	cur = get_node_or_null(buf, fd);
 	if (cur == NULL)
-		return (FAIL);
+		return (false);
 	c = 0;
 	while (c != '\n')
 	{
@@ -62,11 +63,11 @@ static int	get_line(t_gnl_buffer **buf, t_gnl_line *line, int fd)
 			break ;
 		}
 		else if (cur->read_size == -1)
-			return (FAIL);
-		if (append_to_line(line, c) == FAIL)
-			return (FAIL);
+			return (false);
+		if (append_to_line(line, c) == false)
+			return (false);
 	}
-	return (SUCCESS);
+	return (true);
 }
 
 static char	*trim_margine(t_gnl_line *line)
@@ -88,17 +89,13 @@ int	get_next_line(char **read_line, int fd)
 	static t_gnl_buffer	*lst;
 	t_gnl_line			tmp_line;
 
-	if (read(fd, NULL, 0) == -1)
-	{
-		ft_lst_remove_if(&lst, fd);
-		return (SUCCESS);
-	}
-	if (init_tmp_line(&tmp_line) == FAIL)
+	if (read(fd, NULL, 0) == -1 \
+		|| init_tmp_line(&tmp_line) == false)
 	{
 		ft_lst_remove_if(&lst, fd);
 		return (FAIL);
 	}
-	if (get_line(&lst, &tmp_line, fd) == FAIL)
+	if (get_line(&lst, &tmp_line, fd) == false)
 	{
 		ft_lst_remove_if(&lst, fd);
 		free(tmp_line.line);

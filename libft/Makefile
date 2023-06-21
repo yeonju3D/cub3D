@@ -6,7 +6,7 @@
 #    By: yeongo <yeongo@student.42seoul.kr>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/07 17:00:59 by yeongo            #+#    #+#              #
-#    Updated: 2023/06/13 00:00:49 by yeongo           ###   ########.fr        #
+#    Updated: 2023/06/16 22:13:18 by yeongo           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,6 +43,7 @@ SRC_FILES		:=	$(addsuffix .c,				\
 						ft_putnbr_fd			\
 						ft_putendl_fd			\
 						ft_strlen				\
+						ft_strcmp				\
 						ft_strncmp				\
 						ft_strlcpy				\
 						ft_strlcat				\

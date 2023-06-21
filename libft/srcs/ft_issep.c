@@ -6,17 +6,19 @@
 /*   By: yeongo <yeongo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 23:59:12 by yeongo            #+#    #+#             */
-/*   Updated: 2023/06/12 23:59:15 by yeongo           ###   ########.fr       */
+/*   Updated: 2023/06/21 20:54:42 by yeongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ft_issep(char c, char const *sep)
+#include <stdbool.h>
+
+bool	ft_issep(char c, char const *sep)
 {
 	while (*sep)
 	{
 		if (*sep == c)
-			return (1);
+			return (true);
 		sep++;
 	}
-	return (0);
+	return (false);
 }

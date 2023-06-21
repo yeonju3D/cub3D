@@ -6,23 +6,24 @@
 /*   By: yeongo <yeongo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 11:56:41 by yeongo            #+#    #+#             */
-/*   Updated: 2023/06/15 17:41:57 by yeongo           ###   ########.fr       */
+/*   Updated: 2023/06/21 21:01:49 by yeongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_string.h"
 #include <stdlib.h>
+#include <stdbool.h>
 
-static int	valid_check(size_t *start, size_t *end, \
+static bool	valid_check(size_t *start, size_t *end, \
 			char const *s1, char const *set)
 {
-	while (s1[*start] && ft_issep(s1[*start], set))
+	while (s1[*start] && ft_issep(s1[*start], set) == true)
 		(*start)++;
 	if (*start == ft_strlen(s1))
-		return (0);
-	while (ft_issep(s1[*end], set))
+		return (false);
+	while (ft_issep(s1[*end], set) == true)
 		(*end)--;
-	return (1);
+	return (true);
 }
 
 static char	*empty_string(void)
@@ -58,7 +59,7 @@ char	*ft_strtrim(char const *s1, char const *set)
 
 	index_start = 0;
 	index_end = ft_strlen(s1) - 1;
-	if (!valid_check(&index_start, &index_end, s1, set))
+	if (valid_check(&index_start, &index_end, s1, set) == false)
 		return (empty_string());
 	result = malloc(sizeof(char) * (index_end - index_start + 2));
 	if (result == NULL)
