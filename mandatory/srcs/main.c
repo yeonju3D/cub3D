@@ -6,7 +6,7 @@
 /*   By: yeongo <yeongo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 21:23:18 by yeongo            #+#    #+#             */
-/*   Updated: 2023/06/21 20:07:21 by yeongo           ###   ########.fr       */
+/*   Updated: 2023/06/21 22:07:59 by yeongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,8 +90,7 @@ int	set_identifier(char *str, const char **identifiers)
 	index = 0;
 	while (identifiers[index])
 	{
-		if (ft_strncmp
-			(str, identifiers[index], ft_strlen(identifiers[index]) + 1) == 0)
+		if (ft_strcmp(str, identifiers[index]) == 0)
 			return (index);
 		index++;
 	}
@@ -109,7 +108,7 @@ bool	is_valid_rgb_data(char **texture)
 		index_char = 0;
 		while (texture[count][index_char])
 		{
-			if (ft_isdigit(texture[count][index_char]) == 0)
+			if (ft_isdigit(texture[count][index_char]) == false)
 				return (false);
 			index_char++;
 		}
@@ -328,9 +327,25 @@ bool	expand_line_length(t_map *map)
 bool	is_in_boundary(int index_y, int index_x, t_map *map)
 {
 	if (index_y == 0 || index_y == map->board_size - 1 \
-	|| index_x == 0 || index_x == map->max_length)
+		|| index_x == 0 || index_x == map->max_length)
 		return (true);
 	return (false);
+}
+
+// Need to name this function 
+// feat: is placed wall, ground, player direction at up, down, left, right side
+bool	is_udlr_wgp(t_map *map, int index_y, int index_x)
+{
+	if ((index_y != 0 \
+			&& ft_issep(map->board[index_y - 1][index_x], "01NSWE") == false) \
+		|| (index_y != map->board_size - 1 \
+			&& ft_issep(map->board[index_y + 1][index_x], "01NSWE") == false) \
+		|| (index_x != 0 \
+			&& ft_issep(map->board[index_y][index_x - 1], "01NSWE") == false) \
+		|| (index_x != map->max_length - 1 \
+			&& ft_issep(map->board[index_y][index_x + 1], "01NSWE") == false))
+		return (false);
+	return (true);
 }
 
 bool	is_valid_board(t_map *map)
@@ -347,17 +362,20 @@ bool	is_valid_board(t_map *map)
 		while (map->board[index_y][index_x])
 		{
 			if (map->board[index_y][index_x] == '0' \
-				|| (ft_issep(map->board[index_y][index_x], "NSWE") \
+				|| (ft_issep(map->board[index_y][index_x], "NSWE") == true \
 					&& ++player_count))
 			{
 				if (is_in_boundary(index_y, index_x, map) == true)
 					return (false);
-				// 상하좌우 벽땅플 아니면 페일
+				if (is_udlr_wgp(map, index_y, index_x) == false)
+					return (false);
 			}
 			index_x++;
 		}
 		index_y++;
 	}
+	if (player_count != 1)
+		return (false);
 	return (true);
 }
 
