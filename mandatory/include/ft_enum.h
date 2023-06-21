@@ -6,7 +6,7 @@
 /*   By: yeongo <yeongo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 16:36:25 by yeongo            #+#    #+#             */
-/*   Updated: 2023/06/14 20:45:42 by yeongo           ###   ########.fr       */
+/*   Updated: 2023/06/21 20:07:08 by yeongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,6 @@ enum e_level
 	FLOOR,
 	CEILING,
 	LEVEL
-};
-
-enum e_bool
-{
-	FALSE,
-	TRUE
 };
 
 enum e_return

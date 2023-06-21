@@ -6,11 +6,10 @@
 /*   By: yeongo <yeongo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 21:23:18 by yeongo            #+#    #+#             */
-/*   Updated: 2023/06/15 22:57:16 by yeongo           ###   ########.fr       */
+/*   Updated: 2023/06/21 20:07:21 by yeongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_enum.h"
 #include "ft_struct.h"
 #include "ft_mlx.h"
 #include "ft_error.h"
@@ -20,13 +19,11 @@
 #include "get_next_line.h"
 #include "ft_memory.h"
 #include "libft.h"
+#include <stdbool.h>
 #include <mlx.h>
-#include <stddef.h>
-#include <stdio.h>
-#include <stdlib.h>
 #include <sys/fcntl.h>
 
-int	is_valid_file_format(char *map_path, char *file_exp)
+bool	is_valid_file_format(char *map_path, char *file_exp)
 {
 	size_t	path_length;
 	size_t	exp_length;
@@ -38,56 +35,55 @@ int	is_valid_file_format(char *map_path, char *file_exp)
 		&& path_length > exp_length);
 }
 
-int	check_valid_argument(int ac, char **av)
+bool	is_valid_argument(int argc, char *argv[])
 {
-	if (ac != 2)
+	if (argc != 2)
 	{
 		ft_puterr("");
-		return (FAIL);
+		return (false);
 	}
-	if (!is_valid_file_format(av[1], ".cub"))
+	if (is_valid_file_format(argv[1], ".cub") == false)
 	{
 		ft_puterr("Invalid map path format");
-		return (FAIL);
+		return (false);
 	}
-	return (SUCCESS);
+	return (true);
 }
 
 void	init_map_data(t_map *map)
 {
 	int	index;
 
-	map->info.char_dir = NONE;
+	map->char_dir = NONE;
 	index = 0;
 	while (index < DIR)
 	{
-		map->info.pixel_addr[index] = NULL;
+		map->pixel_addr[index] = NULL;
 		index++;
 	}
 	map->board = NULL;
 }
 
-int	open_file(char *map_path)
+int	open_file(const char *map_path)
 {
-	int	fd;
+	const int	fd = open(map_path, O_RDONLY);
 
-	fd = open(map_path, O_RDONLY);
 	if (fd == -1)
 		syscall_err();
-	return (fd);
+	return ((int)fd);
 }
 
-int	skip_empty_line(char **readline)
+bool	skip_empty_line(char **line)
 {
-	if (ft_strncmp(*readline, "\n", 2) == 0)
+	if (ft_strcmp(*line, "\n") == 0)
 	{
-		free(*readline);
-		return (TRUE);
+		free(*line);
+		return (true);
 	}
-	return (FALSE);
+	return (false);
 }
 
-int	is_identifier(char *str, const char **identifiers)
+int	set_identifier(char *str, const char **identifiers)
 {
 	int	index;
 
@@ -102,7 +98,7 @@ int	is_identifier(char *str, const char **identifiers)
 	return (DIR);
 }
 
-int	is_valid_rgb_data(char **texture)
+bool	is_valid_rgb_data(char **texture)
 {
 	int	count;
 	int	index_char;
@@ -113,18 +109,18 @@ int	is_valid_rgb_data(char **texture)
 		index_char = 0;
 		while (texture[count][index_char])
 		{
-			if (!ft_isdigit(texture[count][index_char]))
-				return (FAIL);
+			if (ft_isdigit(texture[count][index_char]) == 0)
+				return (false);
 			index_char++;
 		}
 		count++;
 	}
 	if (count != 4)
-		return (FAIL);
-	return (SUCCESS);
+		return (false);
+	return (true);
 }
 
-int	is_valid_texture(char **texture, int id)
+bool	is_valid_texture(char **texture, int id)
 {
 	return ((id < FL \
 			&& is_valid_file_format(texture[1], ".xpm")) \
@@ -132,19 +128,19 @@ int	is_valid_texture(char **texture, int id)
 			&& is_valid_rgb_data(texture)));
 }
 
-int	set_info_image(t_cub3d *cub3d, t_info *info, char **texture, int id)
+bool	set_info_image(t_cub3d *cub3d, t_map *map, char **texture, int id)
 {
 	int		fd;
 	void	*img_ptr;
 
 	fd = open(texture[1], O_RDONLY);
 	if (fd == -1)
-		return (FAIL);
+		return (false);
 	close(fd);
-	ft_mlx_xpm_file_to_image(cub3d->mlx_ptr, &img_ptr, texture[1]);
-	ft_mlx_get_data_addr(cub3d->mlx_ptr, &info->pixel_addr[id]);
+	img_ptr = ft_mlx_xpm_file_to_image(cub3d->mlx_ptr, texture[1]);
+	map->pixel_addr[id] = ft_mlx_get_data_addr(cub3d->mlx_ptr);
 	mlx_destroy_image(cub3d->mlx_ptr, img_ptr);
-	return (SUCCESS);
+	return (true);
 }
 
 void	colored_image(unsigned int *pixel_addr, unsigned int color)
@@ -161,7 +157,7 @@ void	colored_image(unsigned int *pixel_addr, unsigned int color)
 	}
 }
 
-int	set_info_rgb(t_cub3d *cub3d, t_info *info, char **texture, int id)
+bool	set_info_rgb(t_cub3d *cub3d, t_map *map, char **texture, int id)
 {
 	int				index_rgb;
 	int				rgb[3];
@@ -173,80 +169,80 @@ int	set_info_rgb(t_cub3d *cub3d, t_info *info, char **texture, int id)
 	while (index_rgb < 3)
 	{
 		in_range = ft_atoi(texture[index_rgb + 1], &rgb[index_rgb]);
-		if (!in_range \
+		if (in_range == 0 \
 			|| (rgb[index_rgb] < 0 || 255 < rgb[index_rgb]))
-			return (FAIL);
+			return (false);
 		index_rgb++;
 	}
 	color = (unsigned int)(rgb[0] << 16 | rgb[1] << 8 | rgb[2]);
-	ft_mlx_new_image(cub3d->mlx_ptr, &img_ptr, WIN_HEIGHT, WIN_HEIGHT);
-	ft_mlx_get_data_addr(cub3d->mlx_ptr, &info->pixel_addr[id]);
+	img_ptr = ft_mlx_new_image(cub3d->mlx_ptr, WIN_HEIGHT, WIN_HEIGHT);
+	map->pixel_addr[id] = ft_mlx_get_data_addr(cub3d->mlx_ptr);
 	mlx_destroy_image(cub3d->mlx_ptr, img_ptr);
-	colored_image(info->pixel_addr[id], color);
-	return (SUCCESS);
+	colored_image(map->pixel_addr[id], color);
+	return (true);
 }
 
-int	set_info_texture(t_cub3d *cub3d, t_info *info, char **texture)
+bool	set_info_texture(t_cub3d *cub3d, t_map *map, char **texture)
 {
 	const char	*surface_id[7] = {"NO", "SO", "WE", "EA", \
 								"F", "C", NULL};
 	int			result;
 	int			id;
 
-	id = is_identifier(texture[0], surface_id);
-	if (!is_valid_texture(texture, id))
+	id = set_identifier(texture[0], surface_id);
+	if (is_valid_texture(texture, id) == false)
 		id = DIR;
-	result = FAIL;
+	result = false;
 	if (NO <= id && id < FL)
-		result = set_info_image(cub3d, info, texture, id);
+		result = set_info_image(cub3d, map, texture, id);
 	else if (FL <= id && id < DIR)
-		result = set_info_rgb(cub3d, info, texture, id);
+		result = set_info_rgb(cub3d, map, texture, id);
 	ft_free_strings(&texture);
 	return (result);
 }
 
-int	check_all_textures(t_info *info)
+bool	check_all_textures(t_map *map)
 {
 	int	index;
 
 	index = 0;
 	while (index < DIR)
 	{
-		if (!info->pixel_addr[index])
-			return (FAIL);
+		if (map->pixel_addr[index] == NULL)
+			return (false);
 		index++;
 	}
-	return (SUCCESS);
+	return (true);
 }
 
-int	get_texture(t_cub3d *cub3d, int fd)
+bool	get_texture(t_cub3d *cub3d, int fd)
 {
 	char			*readline;
 	char			**texture;
 	int				texture_count;
-	t_info * const	info = &cub3d->map.info;
+	t_map * const	map = &cub3d->map;
 
 	texture_count = 0;
 	while (texture_count < DIR)
 	{
-		if (get_next_line(&readline, fd) == FAIL)
+		if (get_next_line(&readline, fd) == false)
 		{
 			syscall_err();
-			return (FAIL);
+			return (false);
 		}
-		else if (skip_empty_line(&readline))
+		else if (skip_empty_line(&readline) == true)
 			continue ;
 		if (readline == NULL)
-			return (FAIL);
+			return (false);
 		texture = ft_split_set(readline, " ,\n");
-		if (!set_info_texture(cub3d, info, texture))
-			return (FAIL);
+		if (set_info_texture(cub3d, map, texture) == false)
+			return (false);
 		texture_count++;
 	}
-	return (check_all_textures(info));
+	return (check_all_textures(map));
 }
 
-int	trim_new_line(char **readline)
+bool	trim_new_line(char **readline)
 {
 	char	*trimmed_line;
 	size_t	length;
@@ -256,16 +252,16 @@ int	trim_new_line(char **readline)
 	{
 		trimmed_line = malloc(sizeof(char) * (length - 1));
 		if (trimmed_line == NULL)
-			return (FAIL);
+			return (false);
 		ft_memmove(trimmed_line, *readline, length - 1);
 		trimmed_line[length - 1] = '\0';
 		free(*readline);
 		*readline = trimmed_line;
 	}
-	return (SUCCESS);
+	return (true);
 }
 
-int	append_to_board(t_map *map, char *readline)
+bool	append_to_board(t_map *map, char *readline)
 {
 	char	**tmp_board;
 	int		line_length;
@@ -274,38 +270,38 @@ int	append_to_board(t_map *map, char *readline)
 	{
 		tmp_board = malloc(sizeof(char *) * (map->board_size * 2));
 		if (tmp_board == NULL)
-			return (FAIL);
+			return (false);
 		ft_memmove(tmp_board, map->board, map->board_size);
 		free(map->board);
 		map->board = tmp_board;
 		map->board_capacity *= 2;
 	}
-	if (!trim_new_line(&readline))
-		return (FAIL);
+	if (trim_new_line(&readline) == false)
+		return (false);
 	map->board[map->board_size++] = readline;
 	line_length = ft_strlen(readline);
 	if (map->max_length < line_length)
 		map->max_length = line_length;
-	return (SUCCESS);
+	return (true);
 }
 
-int	trim_board_margine(t_map *map)
+bool	trim_board_margine(t_map *map)
 {
 	char	**result;
 
 	if (map->board_size == 0)
-		return (FAIL);
+		return (false);
 	result = malloc(sizeof(char *) * (map->board_size + 1));
 	if (result == NULL)
-		return (FAIL);
+		return (false);
 	ft_memmove(result, map->board, map->board_size);
 	result[map->board_size] = NULL;
 	free(map->board);
 	map->board = result;
-	return (SUCCESS);
+	return (true);
 }
 
-int	expand_line_length(t_map *map)
+bool	expand_line_length(t_map *map)
 {
 	int		index;
 	int		length;
@@ -319,25 +315,25 @@ int	expand_line_length(t_map *map)
 		{
 			expand_line = malloc(sizeof(char) * (map->max_length + 1));
 			if (expand_line == NULL)
-				return (0);
+				return (false);
 			ft_memmove(expand_line, map->board[index], length);
 			ft_memset(expand_line + length, ' ', map->max_length - length);
 			expand_line[map->max_length] = '\0';
 		}
 		index++;
 	}
-	return (1);
+	return (true);
 }
 
-int	in_boundary(int index_y, int index_x, t_map *map)
+bool	is_in_boundary(int index_y, int index_x, t_map *map)
 {
 	if (index_y == 0 || index_y == map->board_size - 1 \
 	|| index_x == 0 || index_x == map->max_length)
-		return (1);
-	return (0);
+		return (true);
+	return (false);
 }
 
-int	is_valid_board(t_map *map)
+bool	is_valid_board(t_map *map)
 {
 	int	index_y;
 	int	index_x;
@@ -354,18 +350,18 @@ int	is_valid_board(t_map *map)
 				|| (ft_issep(map->board[index_y][index_x], "NSWE") \
 					&& ++player_count))
 			{
-				if (in_boundary(index_y, index_x, map))
-					return (FAIL);
+				if (is_in_boundary(index_y, index_x, map) == true)
+					return (false);
 				// 상하좌우 벽땅플 아니면 페일
 			}
 			index_x++;
 		}
 		index_y++;
 	}
-	return (SUCCESS);
+	return (true);
 }
 
-int	get_board(t_map *map, int fd)
+bool	set_board(t_map *map, int fd)
 {
 	char	*readline;
 	int		result;
@@ -374,45 +370,45 @@ int	get_board(t_map *map, int fd)
 	{
 		result = get_next_line(&readline, fd);
 		if (result == -1)
-			return (FAIL);
+			return (false);
 		else if (readline == NULL)
 			break ;
-		if (append_to_board(map, readline) == FAIL)
+		if (append_to_board(map, readline) == false)
 		{
 			free(readline);
-			return (FAIL);
+			return (false);
 		}
 		free(readline);
 	}
-	if (trim_board_margine(map) == FAIL)
-		return (FAIL);
+	if (trim_board_margine(map) == false)
+		return (false);
 	expand_line_length(map);
-	if (!is_valid_board(map))
-		return (FAIL);
-	return (SUCCESS);
+	if (is_valid_board(map) == false)
+		return (false);
+	return (true);
 }
 
-int	parse_map(t_cub3d *cub3d, char *map_path)
+bool	parse_map(t_cub3d *cub3d, char *map_path)
 {
 	const int	fd = open_file(map_path);
 
 	if (fd == -1)
-		return (FAIL);
-	if (!get_texture(cub3d, fd))
-		return (FAIL);
-	if (!get_board(&cub3d->map, fd))
-		return (FAIL);
-	return (SUCCESS);
+		return (false);
+	if (get_texture(cub3d, fd) == false)
+		return (false);
+	if (set_board(&cub3d->map, fd) == false)
+		return (false);
+	return (true);
 }
 
-int	main(int ac, char **av)
+int	main(int argc, char *argv[])
 {
 	t_cub3d	cub3d;
 
-	if (!check_valid_argument(ac, av))
-		return (1);
+	if (is_valid_argument(argc, argv) == false)
+		return (EXIT_FAILURE);
 	init_map_data(&cub3d.map);
-	if (!parse_map(&cub3d, av[1]))
-		return (1);
-	return (0);
+	if (parse_map(&cub3d, argv[1]) == false)
+		return (EXIT_FAILURE);
+	return (EXIT_SUCCESS);
 }

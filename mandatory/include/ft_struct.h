@@ -6,7 +6,7 @@
 /*   By: yeongo <yeongo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 21:35:15 by yeongo            #+#    #+#             */
-/*   Updated: 2023/06/15 22:48:19 by yeongo           ###   ########.fr       */
+/*   Updated: 2023/06/21 20:06:34 by yeongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,23 +20,17 @@
 # define WIN_HEIGHT 5120
 # define WIN_WIDTH 2880
 
-typedef struct s_info		t_info;
-typedef struct s_map		t_map;
-typedef struct s_cub3d		t_cub3d;
-
-struct s_info
-{
-	int				char_dir;
-	unsigned int	*pixel_addr[DIR];
-};
+typedef struct s_map	t_map;
+typedef struct s_cub3d	t_cub3d;
 
 struct s_map
 {
-	t_info	info;
-	char	**board;
-	int		board_size;
-	int		board_capacity;
-	int		max_length;
+	char			**board;
+	unsigned int	*pixel_addr[DIR];
+	int				char_dir;
+	int				board_size;
+	int				board_capacity;
+	int				max_length;
 };
 
 struct s_cub3d
@@ -46,4 +40,4 @@ struct s_cub3d
 	t_map	map;
 };
 
-#endif
+#endif // FT_STRUCT_H__FT_STRUCT_H__
