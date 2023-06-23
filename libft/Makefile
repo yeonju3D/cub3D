@@ -3,121 +3,106 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: yeongo <yeongo@student.42seoul.kr>         +#+  +:+       +#+         #
+#    By: juwkim <juwkim@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2022/07/07 17:00:59 by yeongo            #+#    #+#              #
-#    Updated: 2023/06/08 18:03:31 by yeongo           ###   ########.fr        #
+#    Created: 2022/10/12 05:18:16 by juwkim            #+#    #+#              #
+#    Updated: 2023/03/01 01:36:15 by juwkim           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME			:=	libft.a
+# ---------------------------------------------------------------------------- #
+#   Define the compiler and flags                                              #
+# ---------------------------------------------------------------------------- #
 
-CC				:=	cc
-CFLAGS			:=	-Wall -Wextra -Werror
-CPPFLAGS		:=
-MJFLAGS			 =	-MJ $@.part.json
+CC                  :=	cc
+CFLAGS              :=	-Wall -Wextra -Werror -march=native -O2 -pipe
+CPPFLAGS            :=	-I include
+ARFLAGS             := 	-rcs
 
-AR				:=	ar
-ARFLAGS			:=	rcus
-RM				:=	rm -rf
+ifdef DEBUG
+	CFLAGS	+= -g -fsanitize=address,leak,undefined
+endif
 
-HEADER			:=	./include/
-SRC_DIR			:=	./srcs/
-OBJ_DIR			:=	./.obj/
-CACHE_DIR		:=	./.cache/
+# ---------------------------------------------------------------------------- #
+#   Define the directories                                                     #
+# ---------------------------------------------------------------------------- #
 
-SRC_FILES		:=	$(addsuffix .c,				\
-						ft_isalpha				\
-						ft_isdigit				\
-						ft_issign				\
-						ft_isalnum				\
-						ft_isascii				\
-						ft_isprint				\
-						ft_toupper				\
-						ft_tolower				\
-						ft_atoi					\
-						ft_itoa					\
-						ft_putchar_fd			\
-						ft_putstr_fd			\
-						ft_putnbr_fd			\
-						ft_putendl_fd			\
-						ft_strlen				\
-						ft_strncmp				\
-						ft_strlcpy				\
-						ft_strlcat				\
-						ft_strchr				\
-						ft_strrchr				\
-						ft_strnstr				\
-						ft_strdup				\
-						ft_strjoin				\
-						ft_substr				\
-						ft_strtrim				\
-						ft_strmapi				\
-						ft_striteri				\
-						ft_str_append			\
-						ft_split				\
-						ft_calloc				\
-						ft_bzero				\
-						ft_memset				\
-						ft_memcpy				\
-						ft_memmove				\
-						ft_memcmp				\
-						ft_memchr				\
-						ft_free					\
-						check_leaks				\
-						ft_lstnew				\
-						ft_lstsize				\
-						ft_lstlast				\
-						ft_lstadd_front			\
-						ft_lstadd_back			\
-						ft_lstdelone			\
-						ft_lstclear				\
-						ft_lstiter				\
-						ft_lstmap				\
-						get_next_line_utils		\
-						get_next_line			\
-						print_number			\
-						print_text				\
-						ft_printf				\
-						ft_abs					\
-					)
-OBJ_FILES		:=	$(SRC_FILES:.c=.o)
-JSON_FILES		:=	compile_commands.json
-SRC				:=	$(addprefix $(SRC_DIR), $(SRC_FILES))
-OBJ				:=	$(addprefix $(OBJ_DIR), $(OBJ_FILES))
+SRC_DIR             :=	ft_ctype ft_math ft_stdio ft_stdlib ft_string ft_strings
+OBJ_DIR             :=	object
 
-CPPFLAGS		+=	-I$(HEADER)
-SRC_FOLDER		:=	$(SRC_DIR)
-OBJ_FOLDER		:=	$(OBJ_DIR)
-OBJS			:=	$(OBJ)
-PRINT			:=	LIBFT
+# ---------------------------------------------------------------------------- #
+#   Define the source files                                                    #
+# ---------------------------------------------------------------------------- #
 
-.PHONY	:	all
-all		:	$(OBJ_FOLDER) $(NAME)
+SRCS                :=	$(wildcard */*.c)
+OBJS                :=	$(patsubst %.c, $(OBJ_DIR)/%.o, $(SRCS))
 
-$(OBJ_FOLDER)	:
-	@if [ ! -d $(OBJ_FOLDER) ]; then \
-		mkdir -p $(OBJ_FOLDER); \
-	fi
+# ---------------------------------------------------------------------------- #
+#   Define the variables for progress bar                                      #
+# ---------------------------------------------------------------------------- #
 
-$(NAME)	:	$(OBJS)
+TOTAL_FILES         :=	$(shell echo $(SRCS) | wc -w)
+COMPILED_FILES      :=	0
+STEP                :=	100
+
+# ---------------------------------------------------------------------------- #
+#   Define the name                                                            #
+# ---------------------------------------------------------------------------- #
+
+NAME                :=	libft.a
+
+# ---------------------------------------------------------------------------- #
+#   Define the rules                                                           #
+# ---------------------------------------------------------------------------- #
+
+all:
+	@$(MAKE) -j $(NAME)
+
+$(NAME): $(OBJS)
 	@$(AR) $(ARFLAGS) $@ $^
-	@(printf [ && find . -name "*.part.json" | xargs cat && printf ]) > $(JSON_FILES);
-	@echo "\033[01;32m       LFT_SUCCESS!      \033[0m"
+	@printf "\n$(MAGENTA)[LIBFT] Make Success\n$(DEF_COLOR)"
 
-$(OBJ_FOLDER)%.o	:	$(SRC_FOLDER)%.c
-	@$(CC) $(CFLAGS) $(CPPFLAGS) $(MJFLAGS) -c -o $@ $<
+$(OBJ_DIR)/%.o: %.c | dir_guard
+	@$(CC) $(CFLAGS) $(CPPFLAGS) -c $< -o $@
+	$(eval COMPILED_FILES = $(shell expr $(COMPILED_FILES) + 1))
+	$(eval PROGRESS = $(shell expr $(COMPILED_FILES) "*" $(STEP) / $(TOTAL_FILES)))
+	@printf "                                                                                                   \r"
+	@printf "$(YELLOW)[LIBFT] [%02d/%02d] ( %3d %%) Compiling $<\r$(DEF_COLOR)" $(COMPILED_FILES) $(TOTAL_FILES) $(PROGRESS)
 
-.PHONY	:	clean
-clean	:
-	@$(RM) $(OBJ_DIR) $(CACHE_DIR)
-	@echo "\033[91m    REMOVE LFT_OBJECT    \033[0m"
+clean:
+	@$(RM) -r $(OBJ_DIR)
+	@printf "$(BLUE)[LIBFT] obj. files$(DEF_COLOR)$(GREEN)	=> Cleaned!\n$(DEF_COLOR)"
 
-.PHONY	:	fclean
-fclean	:	clean
+fclean: clean
 	@$(RM) $(NAME)
-	@echo "\033[91m     LFT_FCLEAN DONE     \033[0m"
+	@printf "$(CYAN)[LIBFT] exec. files$(DEF_COLOR)$(GREEN)	=> Cleaned!\n$(DEF_COLOR)"
 
-.PHONY	:	re
-re		:	fclean
-	@make all
+re: fclean
+	@$(MAKE) all
+	@printf "$(GREEN)Cleaned and Rebuilt everything for libft!\n$(DEF_COLOR)"
+
+dir_guard:
+	@mkdir -p $(addprefix $(OBJ_DIR)/, $(SRC_DIR))
+
+norm:
+	@(norminette | grep Error) || (printf "$(GREEN)[LIBFT] Norminette Success\n$(DEF_COLOR)")
+
+debug:
+	@$(MAKE) fclean
+	@$(MAKE) DEBUG=1 all
+	
+.PHONY:	all clean fclean re dir_guard norm debug
+
+# ---------------------------------------------------------------------------- #
+#   Define the colors                                                          #
+# ---------------------------------------------------------------------------- #
+
+DEF_COLOR           =	\033[1;39m
+GRAY                =	\033[1;90m
+RED                 =	\033[1;91m
+GREEN               =	\033[1;92m
+YELLOW              =	\033[1;93m
+BLUE                =	\033[1;94m
+MAGENTA             =	\033[1;95m
+CYAN                =	\033[1;96m
+WHITE               =	\033[1;97m

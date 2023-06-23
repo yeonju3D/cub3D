@@ -1,23 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_math.h                                          :+:      :+:    :+:   */
+/*   ft_median.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: juwkim <juwkim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/09 10:01:44 by juwkim            #+#    #+#             */
-/*   Updated: 2023/02/27 20:48:06 by juwkim           ###   ########.fr       */
+/*   Created: 2023/01/09 12:14:07 by juwkim            #+#    #+#             */
+/*   Updated: 2023/03/13 03:59:39 by juwkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_MATH_H
-# define FT_MATH_H
+#include "ft_math.h"
 
-# include "libft.h"
-
-int		ft_min(int a, int b);
-int		ft_max(int a, int b);
-int		ft_median(int a, int b, int c);
-void	ft_swap(int *a, int *b);
-
-#endif // FT_MATH_H
+/**
+ * @brief 
+ * @return The middle of the three.
+ */
+int	ft_median(int a, int b, int c)
+{
+	return (ft_max(ft_min(a, b), ft_min(ft_max(a, b), c)));
+}

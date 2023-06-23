@@ -1,23 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_math.h                                          :+:      :+:    :+:   */
+/*   parse.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: juwkim <juwkim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/09 10:01:44 by juwkim            #+#    #+#             */
-/*   Updated: 2023/02/27 20:48:06 by juwkim           ###   ########.fr       */
+/*   Created: 2023/06/24 08:16:19 by juwkim            #+#    #+#             */
+/*   Updated: 2023/06/24 08:20:38 by juwkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_MATH_H
-# define FT_MATH_H
+#ifndef PARSE_H
+# define PARSE_H
 
-# include "libft.h"
+# include "cub3d.h"
 
-int		ft_min(int a, int b);
-int		ft_max(int a, int b);
-int		ft_median(int a, int b, int c);
-void	ft_swap(int *a, int *b);
+bool	parse_map(t_cub3d *const cub3d, const int fd);
+bool	get_texture(t_cub3d *const cub3d, const int fd);
 
-#endif // FT_MATH_H
+#endif // __PARSE_H__

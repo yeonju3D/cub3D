@@ -1,23 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_math.h                                          :+:      :+:    :+:   */
+/*   ft_calloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: juwkim <juwkim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/09 10:01:44 by juwkim            #+#    #+#             */
-/*   Updated: 2023/02/27 20:48:06 by juwkim           ###   ########.fr       */
+/*   Created: 2022/08/29 02:03:51 by juwkim            #+#    #+#             */
+/*   Updated: 2023/03/13 04:01:28 by juwkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_MATH_H
-# define FT_MATH_H
+#include "ft_stdlib.h"
 
-# include "libft.h"
+/**
+ * @brief 
+ * Allocates memory for an array of nmemb elements of size bytes each.
+ * The memory is set to zero.
+ * @param nmemb 
+ * @param size 
+ * @return A pointer to the allocated memory.
+ */
+void	*ft_calloc(size_t nmemb, size_t size)
+{
+	void	*buf;
 
-int		ft_min(int a, int b);
-int		ft_max(int a, int b);
-int		ft_median(int a, int b, int c);
-void	ft_swap(int *a, int *b);
-
-#endif // FT_MATH_H
+	buf = malloc(nmemb * size);
+	ft_bzero(buf, nmemb * size);
+	return (buf);
+}

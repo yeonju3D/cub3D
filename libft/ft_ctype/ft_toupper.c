@@ -1,23 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_math.h                                          :+:      :+:    :+:   */
+/*   ft_toupper.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: juwkim <juwkim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/09 10:01:44 by juwkim            #+#    #+#             */
-/*   Updated: 2023/02/27 20:48:06 by juwkim           ###   ########.fr       */
+/*   Created: 2022/08/29 04:59:11 by juwkim            #+#    #+#             */
+/*   Updated: 2023/03/13 03:59:10 by juwkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_MATH_H
-# define FT_MATH_H
+#include "ft_ctype.h"
 
-# include "libft.h"
-
-int		ft_min(int a, int b);
-int		ft_max(int a, int b);
-int		ft_median(int a, int b, int c);
-void	ft_swap(int *a, int *b);
-
-#endif // FT_MATH_H
+/**
+ * @brief 
+ * If c is an lowercase letter, returns its uppercase equivalent.
+ * Otherwise, it returns c.
+ */
+char	ft_toupper(char c)
+{
+	if (ft_islower(c) == true)
+		return (c ^ 0x20);
+	return (c);
+}

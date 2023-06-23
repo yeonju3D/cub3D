@@ -1,6 +1,0 @@
-.DS_Store
-.cache/
-.obj/
-*.o
-libft.a
-compile_commands.json

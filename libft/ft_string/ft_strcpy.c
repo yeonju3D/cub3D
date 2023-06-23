@@ -1,23 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_math.h                                          :+:      :+:    :+:   */
+/*   ft_strcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: juwkim <juwkim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/09 10:01:44 by juwkim            #+#    #+#             */
-/*   Updated: 2023/02/27 20:48:06 by juwkim           ###   ########.fr       */
+/*   Created: 2023/02/27 20:19:18 by juwkim            #+#    #+#             */
+/*   Updated: 2023/03/13 03:52:19 by juwkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_MATH_H
-# define FT_MATH_H
+#include "ft_string.h"
 
-# include "libft.h"
+/**
+ * @brief 
+ * Copies the string pointed to by src,
+ * including the terminating null byte ('\0'),
+ * to the buffer pointed to by dest. 
+ * @param dest 
+ * @param src 
+ * @return dest
+ */
+char	*ft_strcpy(char *dest, const char *src)
+{
+	char	*ptr;
 
-int		ft_min(int a, int b);
-int		ft_max(int a, int b);
-int		ft_median(int a, int b, int c);
-void	ft_swap(int *a, int *b);
-
-#endif // FT_MATH_H
+	ptr = dest;
+	while (*src != '\0')
+		*ptr++ = *src++;
+	*ptr = '\0';
+	return (dest);
+}

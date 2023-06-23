@@ -3,64 +3,44 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yeongo <yeongo@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: juwkim <juwkim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 21:23:18 by yeongo            #+#    #+#             */
-/*   Updated: 2023/06/08 22:17:06 by yeongo           ###   ########.fr       */
+/*   Updated: 2023/06/24 08:20:49 by juwkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_struct.h"
-#include "error.h"
-#include <ft_string.h>
-#include <sys/fcntl.h>
+#include "cub3d.h"
 
-int	valid_map_format(char *map_path)
+static bool	is_extension(const char *filename, const char *extension);
+
+int	main(int argc, char *argv[])
 {
-	size_t	path_length;
+	t_cub3d	cub3d;
+	int		fd;
 
-	path_length = ft_strlen(map_path);
-	return (ft_strnstr(map_path + path_length - 4, ".ber", 5) \
-			&& path_length >= 5);
-}
-
-int	check_valid_argument(int ac, char **av)
-{
-	if (ac != 2)
-		return (0);
-	if (!valid_map_format(av[1]))
-		return (0);
-	return (1);
-}
-
-int	open_file(char *map_path)
-{
-	int	fd;
-
-	fd = open(map_path, O_RDONLY);
+	if (argc != 2 || is_extension(argv[1], ".cub") == false)
+	{
+		ft_dprintf(STDERR_FILENO, "Usage: .cub3D *.cub");
+		return (EXIT_FAILURE);
+	}
+	fd = open(argv[1], O_RDONLY);
 	if (fd == -1)
 	{
-		ft_puterr("");
-		return (-1);
+		perror(strerror(errno));
+		return (EXIT_FAILURE);
 	}
-	return (fd);
+	ft_memset(&cub3d.map, 0, sizeof cub3d.map);
+	if (parse_map(&cub3d, fd) == false)
+		return (EXIT_FAILURE);
+	return (EXIT_SUCCESS);
 }
 
-int	parse_map(char *map_path)
+static bool	is_extension(const char *filename, const char *extension)
 {
-	int	fd;
+	const size_t	file_len = ft_strlen(filename);
+	const size_t	extension_len = ft_strlen(extension);
 
-	fd = open_file(map_path);
-	if (fd == -1)
-		return (0);
-	return (1);
-}
-
-int	main(int ac, char **av)
-{
-	if (!check_valid_argument(ac, av))
-		return (1);
-	if (!parse_map(av[1]))
-		return (1);
-	return (0);
+	return (file_len > extension_len && \
+		ft_strstr(filename + file_len - extension_len, extension));
 }

@@ -1,23 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_math.h                                          :+:      :+:    :+:   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: juwkim <juwkim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/09 10:01:44 by juwkim            #+#    #+#             */
-/*   Updated: 2023/02/27 20:48:06 by juwkim           ###   ########.fr       */
+/*   Created: 2023/02/27 17:39:40 by juwkim            #+#    #+#             */
+/*   Updated: 2023/03/13 03:35:58 by juwkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_MATH_H
-# define FT_MATH_H
+#include "ft_string.h"
 
-# include "libft.h"
+/**
+ * @brief 
+ * Copy the string s.
+ * @param s  
+ * @return the copied string.
+ */
+char	*ft_strdup(const char *s)
+{
+	char		*copy;
 
-int		ft_min(int a, int b);
-int		ft_max(int a, int b);
-int		ft_median(int a, int b, int c);
-void	ft_swap(int *a, int *b);
-
-#endif // FT_MATH_H
+	copy = malloc(sizeof(char) * (ft_strlen(s) + 1));
+	ft_strcpy(copy, s);
+	return (copy);
+}

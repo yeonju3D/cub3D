@@ -1,23 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_math.h                                          :+:      :+:    :+:   */
+/*   ft_strrchr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: juwkim <juwkim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/09 10:01:44 by juwkim            #+#    #+#             */
-/*   Updated: 2023/02/27 20:48:06 by juwkim           ###   ########.fr       */
+/*   Created: 2022/08/29 04:54:33 by juwkim            #+#    #+#             */
+/*   Updated: 2023/03/13 04:32:07 by juwkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_MATH_H
-# define FT_MATH_H
+#include "ft_string.h"
 
-# include "libft.h"
+/**
+ * @brief 
+ * @param s 
+ * @param c 
+ * @return
+ * A pointer to the last occurrence
+ * of the character c in the string s. 
+ */
+char	*ft_strrchr(const char *s, int c)
+{
+	const char			*ptr;
+	const unsigned char	cc = (unsigned char) c;
 
-int		ft_min(int a, int b);
-int		ft_max(int a, int b);
-int		ft_median(int a, int b, int c);
-void	ft_swap(int *a, int *b);
-
-#endif // FT_MATH_H
+	ptr = s + ft_strlen(s) - 1;
+	while (ptr > s && *ptr != cc)
+		--ptr;
+	return ((char *) ptr);
+}
