@@ -6,121 +6,146 @@
 #    By: juwkim <juwkim@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/08 10:26:53 by yeongo            #+#    #+#              #
-#    Updated: 2023/06/27 20:44:09 by juwkim           ###   ########.fr        #
+#    Updated: 2023/06/28 04:35:08 by juwkim           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME				:=	cub3D
-PROJECT_NAME		:=	CUB3D
-
-HEADER				:=	./mandatory/include/
-SRC_DIR				:=	./mandatory/srcs/
-OBJ_DIR				:=	./mandatory/.obj/
-
-HEADER_BONUS		:=	./bonus/include/
-SRC_B_DIR			:=	./bonus/srcs/
-OBJ_B_DIR			:=	./bonus/.obj/
-CACHE_DIR			:=	./.cache/
-
-LIBFT_DIR			:=	./libft/
-LIBFT_HEADER		:=	./libft/include/
-LIBFT				:=	$(LIBFT_DIR)libft.a
-LIBMLX_DIR			:=	./libmlx/
-LIBMLX				:=	$(LIBMLX_DIR)libmlx.a
-LDFLAGS				:=	-L$(LIBFT_DIR) -lft -L$(LIBMLX_DIR) -lmlx
-
-SRC_FILES			:=	$(addsuffix .c,				\
-							main					\
-							ft_mlx					\
-							parse					\
-						)
-OBJ_FILES			:=	$(SRC_FILES:.c=.o)
-SRC					:=	$(addprefix $(SRC_DIR),		$(SRC_FILES))
-OBJ					:=	$(addprefix $(OBJ_DIR),		$(OBJ_FILES))
-
-SRC_B_FILES			:=	$(addsuffix .c,				\
-							main_bonus				\
-						)
-OBJ_B_FILES			:=	$(SRC_B_FILES:.c=.o)
-SRC_BONUS			:=	$(addprefix $(SRC_B_DIR),	$(SRC_B_FILES))
-OBJ_BONUS			:=	$(addprefix $(OBJ_B_DIR),	$(OBJ_B_FILES))
-
-JSON_FILES			:=	compile_commands
-JSON				:=	$(addsuffix .json,			$(JSON_FILES))
-
-ifdef BONUS
-		INCLUDE				:=	$(HEADER_BONUS)
-		SRC_FOLDER			:=	$(SRC_B_DIR)
-		OBJ_FOLDER			:=	$(OBJ_B_DIR)
-		OBJS				:=	$(OBJ_BONUS)
-		PRINT				:=	$(addsuffix _BONUS,		$(PROJECT_NAME))
-else
-		INCLUDE				:=	$(HEADER)
-		SRC_FOLDER			:=	$(SRC_DIR)
-		OBJ_FOLDER			:=	$(OBJ_DIR)
-		OBJS				:=	$(OBJ)
-		PRINT				:=	$(PROJECT_NAME)
-endif
-
-ifdef	DEBUG
-		DBFLAGS		:=	-g -fsanitize=address
-		PRINT		:=	$(addsuffix _DEBUG, $(PRINT))
-endif
+# ---------------------------------------------------------------------------- #
+#    Define the compiler and flags                                             #
+# ---------------------------------------------------------------------------- #
 
 CC					:=	cc
 CFLAGS				:=	-Wall -Wextra -Werror
-CPPFLAGS			:=	-I$(INCLUDE) -I$(LIBFT_HEADER) -I$(LIBMLX_DIR)
-FRAMEWORK			:=	-framework OpenGL -framework Appkit
-MJFLAGS				 =	-MJ $@.part.json
-RM					:=	rm -rf
+CPPFLAGS			=	-I $(PROJECT_DIR)/include -I $(LIBFT)/include -I $(LIBMLX)
+DEPFLAGS			=	-MMD -MP -MF $(DEP_DIR)/$*.d
+LDFLAGS				=	-framework OpenGL -framework Appkit -L $(LIBFT) -L $(LIBMLX)
+LDLIBS				:=	-l ft -l mlx
 
-.PHONY	:	all
-all		:	$(OBJ_FOLDER) $(NAME)
+ifeq ($(shell uname -s), Linux)
+	CFLAGS			+=	-Wno-unused-result
+endif
 
-$(OBJ_FOLDER)		:
-	@if [ ! -d $(OBJ_FOLDER) ]; then \
-		mkdir -p $(OBJ_FOLDER); \
-	fi
+ifdef	DEBUG
+	CFLAGS			+=	-g -fsanitize=address
+else
+	CFLAGS			+=	-march=native -O2 -pipe
+endif
 
-$(NAME)			:	$(LIBFT) $(LIBMLX) $(OBJS)
-	@$(CC) $(CFLAGS) $(LDFLAGS) $(DBFLAGS) -o $@ $^
-	@(printf [ && find . -name "*.part.json" | xargs cat && printf ]) > $(JSON);
-	@echo "\033[01;32m         SUCCESS!        \033[0m"
+# ---------------------------------------------------------------------------- #
+#    Define the libraries                                                      #
+# ---------------------------------------------------------------------------- #
 
-$(LIBFT)		:
-	@make -s -C $(LIBFT_DIR) all
+LIBFT				:=	libft
+LIBMLX				:=	libmlx
 
-$(LIBMLX)		:
-	@make -s -C $(LIBMLX_DIR) all 2> /dev/null
+# ---------------------------------------------------------------------------- #
+#    Define the directories                                                    #
+# ---------------------------------------------------------------------------- #
 
-$(OBJ_DIR)%.o	:	$(SRC_DIR)%.c
-	@$(CC) $(CFLAGS) $(DBFLAGS) $(CPPFLAGS) $(MJFLAGS) -c -o $@ $<
+ifdef BONUS
+	PROJECT_DIR		:=	bonus
+else
+	PROJECT_DIR		:=	mandatory
+endif
 
-.PHONY	:	test
-test	:
-	@make TEST=1 all
+SRC_DIR				:=	$(PROJECT_DIR)/source
+BUILD_DIR			:=	$(PROJECT_DIR)/build
+OBJ_DIR				:=	$(BUILD_DIR)/object
+DEP_DIR				:=	$(BUILD_DIR)/dependency
 
-.PHONY	:	debug
-debug	:
-	@make DEBUG=1 all
+# ---------------------------------------------------------------------------- #
+#    Define the source files                                                   #
+# ---------------------------------------------------------------------------- #
 
-.PHONY	:	bonus
-bonus	:
-	@make BONUS=1 all
+SRCS_FILES			:=	main.c ft_mlx.c parse.c
+ifdef BONUS
+	SRCS_FILES		:=	$(patsubst %.c, %_bonus.c, $(SRCS_FILES))
+endif
 
-.PHONY	:	clean
-clean	:
-	@make -s -C $(LIBFT_DIR) clean
-	@make -s -C $(LIBMLX_DIR) clean
-	@$(RM) $(OBJ_DIR) $(OBJ_B_DIR) $(CACHE_DIR)
-	@echo "\033[91m      REMOVE OBJECT      \033[0m"
+SRCS				:=	$(addprefix $(SRC_DIR)/, $(SRCS_FILES))
+OBJS				:=	$(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/%.o, $(SRCS))
+DEPS				:=	$(patsubst $(SRC_DIR)/%.c, $(DEP_DIR)/%.d, $(SRCS))
 
-.PHONY	:	fclean
-fclean	:	clean
-	@$(RM) $(LIBFT)
-	@$(RM) $(NAME)
-	@echo "\033[91m       FCLEAN DONE       \033[0m"
+# ---------------------------------------------------------------------------- #
+#    Define the variables for progress bar                                     #
+# ---------------------------------------------------------------------------- #
 
-.PHONY	:	re
-re		:	fclean
-	@make all
+TOTAL_FILES			:=	$(shell echo $(SRCS) | wc -w)
+COMPILED_FILES		:=	0
+STEP				:=	100
+
+# ---------------------------------------------------------------------------- #
+#    Define the target                                                         #
+# ---------------------------------------------------------------------------- #
+
+NAME				:=	cub3D
+
+# ---------------------------------------------------------------------------- #
+#    Define the rules                                                          #
+# ---------------------------------------------------------------------------- #
+
+all:	$(NAME)
+
+$(NAME): $(LIBFT) $(LIBMLX) $(OBJS)
+	@$(CC) $(CFLAGS) $(LDFLAGS) $^ -o $@ $(LDLIBS)
+	@printf "\n$(MAGENTA)[$(NAME)] Linking Success\n$(DEF_COLOR)"
+
+$(OBJ_DIR)/%.o : $(SRC_DIR)/%.c | dir_guard
+	@$(CC) $(CFLAGS) $(CPPFLAGS) $(DEPFLAGS) -c $< -o $@
+	@$(eval COMPILED_FILES = $(shell expr $(COMPILED_FILES) + 1))
+	@$(eval PROGRESS = $(shell expr $(COMPILED_FILES) "*" $(STEP) / $(TOTAL_FILES)))
+	@printf "                                                                                                   \r"
+	@printf "$(YELLOW)[$(NAME)] [%02d/%02d] ( %3d %%) Compiling $<\r$(DEF_COLOR)" $(COMPILED_FILES) $(TOTAL_FILES) $(PROGRESS)
+
+$(LIBFT):
+	@$(MAKE) -C $(LIBFT)
+
+$(LIBMLX):
+	@$(MAKE) -C $(LIBMLX) 2> /dev/null
+
+clean:
+	@$(MAKE) -C $(LIBFT) clean
+	@$(MAKE) -C $(LIBMLX) clean
+	@$(RM) -r $(BUILD_DIR)
+	@printf "$(BLUE)[$(NAME)] obj. dep. files$(DEF_COLOR)$(GREEN)	=> Cleaned!\n$(DEF_COLOR)"
+
+fclean:
+	@$(MAKE) -C $(LIBFT) fclean
+	@$(MAKE) -C $(LIBMLX) fclean
+	@$(RM) -r $(BUILD_DIR) $(NAME)
+	@printf "$(BLUE)[$(NAME)] obj. dep. files$(DEF_COLOR)$(GREEN)	=> Cleaned!\n$(DEF_COLOR)"
+	@printf "$(CYAN)[$(NAME)] exec. files$(DEF_COLOR)$(GREEN)	=> Cleaned!\n$(DEF_COLOR)"
+
+bonus:
+	@$(MAKE) BONUS=1 all
+
+re: fclean
+	@$(MAKE) all
+	@printf "$(GREEN)[$(NAME)] Cleaned and rebuilt everything!\n$(DEF_COLOR)"
+
+dir_guard:
+	@mkdir -p $(OBJ_DIR) $(DEP_DIR)
+
+norm:
+	@(norminette $(LIBFT) mandatory bonus | grep Error) || (printf "$(GREEN)[$(NAME)] Norminette Success\n$(DEF_COLOR)")
+
+debug:
+	@$(MAKE) DEBUG=1 all
+
+.PHONY: all clean fclean bonus re dir_guard norm debug
+
+# ---------------------------------------------------------------------------- #
+#    Define the colors                                                         #
+# ---------------------------------------------------------------------------- #
+
+DEF_COLOR	=	\033[1;39m
+GRAY		=	\033[1;90m
+RED			=	\033[1;91m
+GREEN		=	\033[1;92m
+YELLOW		=	\033[1;93m
+BLUE		=	\033[1;94m
+MAGENTA		=	\033[1;95m
+CYAN		=	\033[1;96m
+WHITE		=	\033[1;97m
+
+-include $(DEPS)

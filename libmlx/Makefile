@@ -18,7 +18,26 @@ $(NOM):	$(OBJ)
 	ranlib $(NOM)
 
 clean:
-	rm -f $(NOM) $(OBJ) *~
-	rm -f mlx_app
+	@$(RM) -f $(NOM) $(OBJ) *~
+	@$(RM) -f mlx_app
+	@printf "$(BLUE)[LIBMLX] obj. files$(DEF_COLOR)$(GREEN)	=> Cleaned!\n$(DEF_COLOR)"
 
-re: clean all
+fclean: clean
+	@$(RM) -f mlx_app
+	@printf "$(CYAN)[LIBMLX] exec. files$(DEF_COLOR)$(GREEN)	=> Cleaned!\n$(DEF_COLOR)"
+
+re: clean all fclean
+
+# ---------------------------------------------------------------------------- #
+#    Define the colors                                                         #
+# ---------------------------------------------------------------------------- #
+
+DEF_COLOR	=	\033[1;39m
+GRAY		=	\033[1;90m
+RED			=	\033[1;91m
+GREEN		=	\033[1;92m
+YELLOW		=	\033[1;93m
+BLUE		=	\033[1;94m
+MAGENTA		=	\033[1;95m
+CYAN		=	\033[1;96m
+WHITE		=	\033[1;97m
