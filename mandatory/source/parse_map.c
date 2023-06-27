@@ -6,11 +6,15 @@
 /*   By: juwkim <juwkim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 08:11:49 by juwkim            #+#    #+#             */
-/*   Updated: 2023/06/28 07:13:07 by juwkim           ###   ########.fr       */
+/*   Updated: 2023/06/28 08:04:38 by juwkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parse.h"
+
+static bool	append_to_board(t_map *const map, const char *line);
+static bool	is_valid_board(t_map *const map);
+static bool	is_boundary(const int i, const int j, t_map *const map);
 
 bool	parse_map(t_map *const map, const int fd)
 {
@@ -26,129 +30,66 @@ bool	parse_map(t_map *const map, const int fd)
 			free(line);
 			return (false);
 		}
-		free(line);
 	}
-	if (trim_board_margine(map) == false)
-		return (false);
-	expand_line_length(map);
-	if (is_valid_board(map) == false)
-		return (false);
-	return (true);
+	return (is_valid_board(map) == false);
 }
 
-bool	append_to_board(t_map *map, char *readline)
+static bool	append_to_board(t_map *const map, const char *line)
 {
-	char	**tmp_board;
+	char	**new_board;
 	int		line_length;
 
 	if (map->board_size == map->board_capacity)
 	{
-		tmp_board = malloc(sizeof(char *) * (map->board_size * 2));
-		if (tmp_board == NULL)
+		map->board_capacity <<= 1;
+		new_board = malloc(sizeof(char *) * map->board_capacity);
+		if (new_board == NULL)
 			return (false);
-		ft_memmove(tmp_board, map->board, map->board_size);
+		ft_memcpy(new_board, map->board, sizeof(char *) * map->board_size);
 		free(map->board);
-		map->board = tmp_board;
-		map->board_capacity *= 2;
+		map->board = new_board;
 	}
-	if (trim_new_line(&readline) == false)
-		return (false);
-	map->board[map->board_size++] = readline;
-	line_length = ft_strlen(readline);
-	if (map->max_length < line_length)
-		map->max_length = line_length;
+	map->board[map->board_size++] = line;
 	return (true);
 }
 
-bool	trim_board_margine(t_map *map)
+static bool	is_valid_board(t_map *const map)
 {
-	char	**result;
-
-	if (map->board_size == 0)
-		return (false);
-	result = malloc(sizeof(char *) * (map->board_size + 1));
-	if (result == NULL)
-		return (false);
-	ft_memmove(result, map->board, map->board_size);
-	result[map->board_size] = NULL;
-	free(map->board);
-	map->board = result;
-	return (true);
-}
-
-bool	expand_line_length(t_map *map)
-{
-	int		index;
-	int		length;
-	char	*expand_line;
-
-	index = 0;
-	while (map->board[index])
-	{
-		length = ft_strlen(map->board[index]);
-		if (length != map->max_length)
-		{
-			expand_line = malloc(sizeof(char) * (map->max_length + 1));
-			if (expand_line == NULL)
-				return (false);
-			ft_memmove(expand_line, map->board[index], length);
-			ft_memset(expand_line + length, ' ', map->max_length - length);
-			expand_line[map->max_length] = '\0';
-		}
-		index++;
-	}
-	return (true);
-}
-
-bool	is_in_boundary(int index_y, int index_x, t_map *map)
-{
-	return (index_y == 0 || index_y == map->board_size - 1 \
-			|| index_x == 0 || index_x == map->max_length);
-}
-
-// Need to name this function 
-// feat: is placed wall, ground, player direction at up, down, left, right side
-bool	is_udlr_wgp(t_map *map, int index_y, int index_x)
-{
-	if ((index_y != 0 \
-			&& ft_issep(map->board[index_y - 1][index_x], "01NSWE") == false) \
-		|| (index_y != map->board_size - 1 \
-			&& ft_issep(map->board[index_y + 1][index_x], "01NSWE") == false) \
-		|| (index_x != 0 \
-			&& ft_issep(map->board[index_y][index_x - 1], "01NSWE") == false) \
-		|| (index_x != map->max_length - 1 \
-			&& ft_issep(map->board[index_y][index_x + 1], "01NSWE") == false))
-		return (false);
-	return (true);
-}
-
-bool	is_valid_board(t_map *map)
-{
-	int	index_y;
-	int	index_x;
-	int	player_count;
+	static const char	*allowed = "NSWE01";
+	int					i;
+	int					j;
+	int					player_count;
+	char				*pos;
 
 	player_count = 0;
-	index_y = 0;
-	while (map->board[index_y])
+	i = 0;
+	while (i < map->board_size)
 	{
-		index_x = 0;
-		while (map->board[index_y][index_x])
+		j = 0;
+		while (map->board[i][j] != '\0')
 		{
-			if (map->board[index_y][index_x] == '0' \
-				|| (ft_issep(map->board[index_y][index_x], "NSWE") == true \
-					&& ++player_count))
-			{
-				if (is_in_boundary(index_y, index_x, map) == true)
-					return (false);
-				if (is_udlr_wgp(map, index_y, index_x) == false)
-					return (false);
-			}
-			index_x++;
+			pos = ft_strchr(allowed, map->board[i][j]) - allowed;
+			if (pos < 0)
+				return (false);
+			if (pos != 5 && is_boundary(i, j, map) == true)
+				return (false);
+			player_count += (pos <= 3);
+			++j;
 		}
-		index_y++;
+		++i;
 	}
-	if (player_count != 1)
-		return (false);
-	return (true);
+	return (player_count == 1);
+}
+
+static bool	is_boundary(const int i, const int j, t_map *const map)
+{
+	return (i == 0 || \
+			i == map->board_size - 1 || \
+			j == 0 || \
+			map->board[i][j + 1] == '\0' || \
+			map->board[i - 1][j] == ' ' ||
+			map->board[i + 1][j] == ' ' ||
+			map->board[i][j - 1] == ' ' ||
+			map->board[i][j + 1] == ' '
+			);
 }

@@ -6,7 +6,7 @@
 /*   By: juwkim <juwkim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 06:49:14 by juwkim            #+#    #+#             */
-/*   Updated: 2023/06/28 07:10:01 by juwkim           ###   ########.fr       */
+/*   Updated: 2023/06/28 07:41:34 by juwkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,6 @@ typedef struct s_map
 	int				char_dir;
 	int				board_size;
 	int				board_capacity;
-	int				max_length;
 }	t_map;
 
 typedef struct s_cub3d
