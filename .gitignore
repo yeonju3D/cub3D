@@ -1,10 +1,4 @@
 .DS_Store
 .vscode
-.obj
-*.o
-*.a
-*.out
-*.json
-*.tgz
+*/build
 cub3D
-Makefile_*
