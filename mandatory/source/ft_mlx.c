@@ -6,7 +6,7 @@
 /*   By: juwkim <juwkim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 17:49:20 by yeongo            #+#    #+#             */
-/*   Updated: 2023/06/27 20:46:21 by juwkim           ###   ########.fr       */
+/*   Updated: 2023/06/28 06:02:25 by juwkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,13 +67,13 @@ char	*ft_mlx_get_data_addr(void *img_ptr)
 {
 	int			bits_per_pixel;
 	int			size_line;
-	const char	*pixel_addr = \
+	const char	*data_addr = \
 		mlx_get_data_addr(img_ptr, &bits_per_pixel, &size_line, NULL);
 
-	if (pixel_addr == NULL)
+	if (data_addr == NULL)
 	{
 		ft_dprintf(STDERR_FILENO, "Fail to mlx_get_data_addr()");
 		exit(EXIT_FAILURE);
 	}
-	return ((void *)pixel_addr);
+	return ((char *)data_addr);
 }

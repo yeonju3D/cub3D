@@ -6,13 +6,11 @@
 /*   By: juwkim <juwkim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 21:23:18 by yeongo            #+#    #+#             */
-/*   Updated: 2023/06/28 04:40:26 by juwkim           ###   ########.fr       */
+/*   Updated: 2023/06/28 07:10:05 by juwkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parse.h"
-
-static bool	is_extension(const char *filename, const char *extension);
 
 int	main(int argc, char *argv[])
 {
@@ -31,16 +29,7 @@ int	main(int argc, char *argv[])
 		return (EXIT_FAILURE);
 	}
 	ft_memset(&cub3d.map, 0, sizeof cub3d.map);
-	if (parse_map(&cub3d, fd) == false)
+	if (parse(&cub3d, fd) == false)
 		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
-}
-
-static bool	is_extension(const char *filename, const char *extension)
-{
-	const size_t	file_len = ft_strlen(filename);
-	const size_t	extension_len = ft_strlen(extension);
-
-	return (file_len > extension_len && \
-		ft_strstr(filename + file_len - extension_len, extension));
 }

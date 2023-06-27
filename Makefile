@@ -6,7 +6,7 @@
 #    By: juwkim <juwkim@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/08 10:26:53 by yeongo            #+#    #+#              #
-#    Updated: 2023/06/28 04:35:08 by juwkim           ###   ########.fr        #
+#    Updated: 2023/06/28 07:07:48 by juwkim           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -57,7 +57,7 @@ DEP_DIR				:=	$(BUILD_DIR)/dependency
 #    Define the source files                                                   #
 # ---------------------------------------------------------------------------- #
 
-SRCS_FILES			:=	main.c ft_mlx.c parse.c
+SRCS_FILES			:=	main.c utils.c ft_mlx.c parse.c parse_texture.c parse_map.c
 ifdef BONUS
 	SRCS_FILES		:=	$(patsubst %.c, %_bonus.c, $(SRCS_FILES))
 endif

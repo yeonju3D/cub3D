@@ -1,24 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_mlx.h                                           :+:      :+:    :+:   */
+/*   utils.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: juwkim <juwkim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/11 16:42:59 by yeongo            #+#    #+#             */
-/*   Updated: 2023/06/28 05:57:42 by juwkim           ###   ########.fr       */
+/*   Created: 2023/06/28 07:08:17 by juwkim            #+#    #+#             */
+/*   Updated: 2023/06/28 07:08:49 by juwkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_MLX_H
-# define FT_MLX_H
+#ifndef UTILS_H
+# define UTILS_H
 
-# include "cub3d.h"
+bool	is_extension(const char *filename, const char *extension);
 
-void	*ft_mlx_init(void);
-void	*ft_mlx_new_window(void *mlx_ptr, int size_x, int size_y);
-void	*ft_mlx_new_image(void *mlx_ptr, int width, int height);
-void	*ft_mlx_xpm_file_to_image(void *mlx_ptr, char *filename);
-char	*ft_mlx_get_data_addr(void *img_ptr);
-
-#endif // __FT_MLX_H__
+#endif // __UTILS_H__

@@ -6,7 +6,7 @@
 /*   By: juwkim <juwkim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 06:49:14 by juwkim            #+#    #+#             */
-/*   Updated: 2023/06/27 20:40:49 by juwkim           ###   ########.fr       */
+/*   Updated: 2023/06/28 07:10:01 by juwkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 
 // project headers
 # include "libft.h"		// libft utile functions
+# include "utils.h"		// util functions
 
 # define PROGRAM			"cub3D"
 # define WIN_HEIGHT			5120
@@ -37,8 +38,9 @@ enum e_texture
 	SO,
 	WE,
 	EA,
-	CE,
-	FL
+	F,
+	C,
+	NONE
 };
 
 enum e_direction
@@ -47,8 +49,7 @@ enum e_direction
 	SOUTH,
 	WEST,
 	EAST,
-	WALL,
-	NONE
+	WALL
 };
 
 enum e_level
@@ -61,7 +62,7 @@ enum e_level
 typedef struct s_map
 {
 	char			**board;
-	unsigned int	*pixel_addr[DIRECTION_COUNT];
+	unsigned int	*data_addr[DIRECTION_COUNT];
 	int				char_dir;
 	int				board_size;
 	int				board_capacity;

@@ -1,24 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_mlx.h                                           :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: juwkim <juwkim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/11 16:42:59 by yeongo            #+#    #+#             */
-/*   Updated: 2023/06/28 05:57:42 by juwkim           ###   ########.fr       */
+/*   Created: 2023/06/28 07:07:29 by juwkim            #+#    #+#             */
+/*   Updated: 2023/06/28 07:08:01 by juwkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_MLX_H
-# define FT_MLX_H
+#include "cub3d.h"
 
-# include "cub3d.h"
+bool	is_extension(const char *filename, const char *extension)
+{
+	const size_t	file_len = ft_strlen(filename);
+	const size_t	extension_len = ft_strlen(extension);
 
-void	*ft_mlx_init(void);
-void	*ft_mlx_new_window(void *mlx_ptr, int size_x, int size_y);
-void	*ft_mlx_new_image(void *mlx_ptr, int width, int height);
-void	*ft_mlx_xpm_file_to_image(void *mlx_ptr, char *filename);
-char	*ft_mlx_get_data_addr(void *img_ptr);
-
-#endif // __FT_MLX_H__
+	return (file_len > extension_len && \
+		ft_strstr(filename + file_len - extension_len, extension));
+}
