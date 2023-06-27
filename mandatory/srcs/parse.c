@@ -6,7 +6,7 @@
 /*   By: juwkim <juwkim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 08:15:58 by juwkim            #+#    #+#             */
-/*   Updated: 2023/06/24 08:19:48 by juwkim           ###   ########.fr       */
+/*   Updated: 2023/06/27 20:47:45 by juwkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ bool	get_texture(t_cub3d *const cub3d, const int fd)
 	texture_count = 0;
 	while (texture_count < DIRECTION_COUNT)
 	{
-		if (get_next_line(&readline, fd) == false)
+		if (ft_get_next_line(fd) == false)
 		{
 			syscall_err();
 			return (false);

@@ -6,7 +6,7 @@
 /*   By: juwkim <juwkim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 06:49:14 by juwkim            #+#    #+#             */
-/*   Updated: 2023/06/24 08:20:26 by juwkim           ###   ########.fr       */
+/*   Updated: 2023/06/27 20:40:49 by juwkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@
 
 // project headers
 # include "libft.h"		// libft utile functions
-# include "parse.h"		// To parse map
 
 # define PROGRAM			"cub3D"
 # define WIN_HEIGHT			5120

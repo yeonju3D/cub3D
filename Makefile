@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: yeongo <yeongo@student.42seoul.kr>         +#+  +:+       +#+         #
+#    By: juwkim <juwkim@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/08 10:26:53 by yeongo            #+#    #+#              #
-#    Updated: 2023/06/08 17:47:14 by yeongo           ###   ########.fr        #
+#    Updated: 2023/06/27 20:44:09 by juwkim           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,6 +31,8 @@ LDFLAGS				:=	-L$(LIBFT_DIR) -lft -L$(LIBMLX_DIR) -lmlx
 
 SRC_FILES			:=	$(addsuffix .c,				\
 							main					\
+							ft_mlx					\
+							parse					\
 						)
 OBJ_FILES			:=	$(SRC_FILES:.c=.o)
 SRC					:=	$(addprefix $(SRC_DIR),		$(SRC_FILES))

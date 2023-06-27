@@ -6,7 +6,7 @@
 /*   By: juwkim <juwkim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 17:49:20 by yeongo            #+#    #+#             */
-/*   Updated: 2023/06/24 07:31:21 by juwkim           ###   ########.fr       */
+/*   Updated: 2023/06/27 20:46:21 by juwkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,10 @@ void	*ft_mlx_init(void)
 
 	if (mlx_ptr == NULL)
 	{
-		ft_dprint(STDERR_FILENO, "Fail to mlx_init()");
+		ft_dprintf(STDERR_FILENO, "Fail to mlx_init()");
 		exit(EXIT_FAILURE);
 	}
-	return (mlx_ptr);
+	return ((void *)mlx_ptr);
 }
 
 void	*ft_mlx_new_window(void *mlx_ptr, int size_x, int size_y)
@@ -30,10 +30,10 @@ void	*ft_mlx_new_window(void *mlx_ptr, int size_x, int size_y)
 
 	if (win_ptr == NULL)
 	{
-		ft_dprint(STDERR_FILENO, "Fail to mlx_new_window()");
+		ft_dprintf(STDERR_FILENO, "Fail to mlx_new_window()");
 		exit(EXIT_FAILURE);
 	}
-	return (win_ptr);
+	return ((void *)win_ptr);
 }
 
 void	*ft_mlx_new_image(void *mlx_ptr, int width, int height)
@@ -42,10 +42,10 @@ void	*ft_mlx_new_image(void *mlx_ptr, int width, int height)
 
 	if (img_ptr == NULL)
 	{
-		ft_dprint(STDERR_FILENO, "Fail to mlx_new_image()");
+		ft_dprintf(STDERR_FILENO, "Fail to mlx_new_image()");
 		exit(EXIT_FAILURE);
 	}
-	return (img_ptr);
+	return ((void *)img_ptr);
 }
 
 void	*ft_mlx_xpm_file_to_image(void *mlx_ptr, char *filename)
@@ -57,10 +57,10 @@ void	*ft_mlx_xpm_file_to_image(void *mlx_ptr, char *filename)
 
 	if (img_ptr == NULL)
 	{
-		ft_dprint(STDERR_FILENO, "Fail to mlx_xpm_file_to_image()");
+		ft_dprintf(STDERR_FILENO, "Fail to mlx_xpm_file_to_image()");
 		exit(EXIT_FAILURE);
 	}
-	return (img_ptr);
+	return ((void *)img_ptr);
 }
 
 char	*ft_mlx_get_data_addr(void *img_ptr)
@@ -72,8 +72,8 @@ char	*ft_mlx_get_data_addr(void *img_ptr)
 
 	if (pixel_addr == NULL)
 	{
-		ft_dprint(STDERR_FILENO, "Fail to mlx_get_data_addr()");
+		ft_dprintf(STDERR_FILENO, "Fail to mlx_get_data_addr()");
 		exit(EXIT_FAILURE);
 	}
-	return (pixel_addr);
+	return ((void *)pixel_addr);
 }

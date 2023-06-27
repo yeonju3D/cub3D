@@ -6,11 +6,12 @@
 /*   By: juwkim <juwkim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 21:23:18 by yeongo            #+#    #+#             */
-/*   Updated: 2023/06/24 08:20:49 by juwkim           ###   ########.fr       */
+/*   Updated: 2023/06/27 20:41:10 by juwkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+#include "parse.h"
 
 static bool	is_extension(const char *filename, const char *extension);
 
