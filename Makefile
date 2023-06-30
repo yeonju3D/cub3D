@@ -6,7 +6,7 @@
 #    By: juwkim <juwkim@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/08 10:26:53 by yeongo            #+#    #+#              #
-#    Updated: 2023/06/30 11:05:15 by juwkim           ###   ########.fr        #
+#    Updated: 2023/06/30 11:17:00 by juwkim           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -84,9 +84,12 @@ NAME				:=	cub3D
 #    Define the rules                                                          #
 # ---------------------------------------------------------------------------- #
 
-all:	$(NAME)
+all:
+	@$(MAKE) -C $(LIBFT)
+	@$(MAKE) -C $(LIBMLX) 2> /dev/null
+	@$(MAKE) $(NAME)
 
-$(NAME): $(LIBFT) $(LIBMLX) $(OBJS)
+$(NAME): $(OBJS)
 	@$(CC) $(CFLAGS) $(LDFLAGS) $^ -o $@ $(LDLIBS)
 	@printf "\n$(MAGENTA)[$(NAME)] Linking Success\n$(DEF_COLOR)"
 
@@ -96,12 +99,6 @@ $(OBJ_DIR)/%.o : $(SRC_DIR)/%.c | dir_guard
 	@$(eval PROGRESS = $(shell expr $(COMPILED_FILES) "*" $(STEP) / $(TOTAL_FILES)))
 	@printf "                                                                                                   \r"
 	@printf "$(YELLOW)[$(NAME)] [%02d/%02d] ( %3d %%) Compiling $<\r$(DEF_COLOR)" $(COMPILED_FILES) $(TOTAL_FILES) $(PROGRESS)
-
-$(LIBFT):
-	@$(MAKE) -C $(LIBFT)
-
-$(LIBMLX):
-	@$(MAKE) -C $(LIBMLX) 2> /dev/null
 
 clean:
 	@$(MAKE) -C $(LIBFT) clean
@@ -132,7 +129,7 @@ norm:
 debug:
 	@$(MAKE) DEBUG=1 all
 
-.PHONY: all clean fclean bonus re dir_guard norm debug $(LIBFT) $(LIBMLX)
+.PHONY: all clean fclean bonus re dir_guard norm debug
 
 # ---------------------------------------------------------------------------- #
 #    Define the colors                                                         #
