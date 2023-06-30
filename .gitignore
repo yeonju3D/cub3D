@@ -1,4 +1,6 @@
 .DS_Store
 .vscode
 */build
+libmlx/*.o
+libmlx/*.a
 cub3D
