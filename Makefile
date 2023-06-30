@@ -6,7 +6,7 @@
 #    By: juwkim <juwkim@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/08 10:26:53 by yeongo            #+#    #+#              #
-#    Updated: 2023/06/28 07:07:48 by juwkim           ###   ########.fr        #
+#    Updated: 2023/06/30 11:05:15 by juwkim           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,7 @@ endif
 ifdef	DEBUG
 	CFLAGS			+=	-g -fsanitize=address
 else
-	CFLAGS			+=	-march=native -O2 -pipe
+	CFLAGS			+=	-O2 -pipe
 endif
 
 # ---------------------------------------------------------------------------- #
@@ -132,7 +132,7 @@ norm:
 debug:
 	@$(MAKE) DEBUG=1 all
 
-.PHONY: all clean fclean bonus re dir_guard norm debug
+.PHONY: all clean fclean bonus re dir_guard norm debug $(LIBFT) $(LIBMLX)
 
 # ---------------------------------------------------------------------------- #
 #    Define the colors                                                         #

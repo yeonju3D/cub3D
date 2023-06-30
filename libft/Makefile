@@ -6,7 +6,7 @@
 #    By: juwkim <juwkim@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/12 05:18:16 by juwkim            #+#    #+#              #
-#    Updated: 2023/06/28 03:32:10 by juwkim           ###   ########.fr        #
+#    Updated: 2023/06/30 10:46:59 by juwkim           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@
 # ---------------------------------------------------------------------------- #
 
 CC                  :=	cc
-CFLAGS              :=	-Wall -Wextra -Werror -march=native -O2 -pipe
+CFLAGS              :=	-Wall -Wextra -Werror -O2 -pipe
 CPPFLAGS            :=	-I include
 ARFLAGS             := 	-rcs
 

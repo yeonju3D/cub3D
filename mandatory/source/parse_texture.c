@@ -6,7 +6,7 @@
 /*   By: juwkim <juwkim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 06:16:22 by juwkim            #+#    #+#             */
-/*   Updated: 2023/06/28 07:04:08 by juwkim           ###   ########.fr       */
+/*   Updated: 2023/06/30 10:42:19 by juwkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ static bool	set_texture(t_cub3d *const cub3d, const char *line)
 		rgb = ft_split(line + 2, ',');
 		if (rgb == NULL)
 			return (false);
-		result = set_texture_color(cub3d, rgb, id);
+		result = set_texture_color(cub3d, (const char **)rgb, id);
 		index = 0;
 		while (rgb[index])
 			free(rgb[index++]);
@@ -85,7 +85,6 @@ static enum e_texture	get_texture_identifier(const char *line)
 static bool	set_texture_image(t_cub3d *const cub3d, \
 	const char *image_path, const enum e_texture id)
 {
-	int		fd;
 	void	*img_ptr;
 
 	if (is_extension(image_path, ".xpm") == false)

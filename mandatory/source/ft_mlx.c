@@ -6,7 +6,7 @@
 /*   By: juwkim <juwkim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 17:49:20 by yeongo            #+#    #+#             */
-/*   Updated: 2023/06/28 06:02:25 by juwkim           ###   ########.fr       */
+/*   Updated: 2023/06/30 10:44:14 by juwkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	*ft_mlx_init(void)
 	return ((void *)mlx_ptr);
 }
 
-void	*ft_mlx_new_window(void *mlx_ptr, int size_x, int size_y)
+void	*ft_mlx_new_window(void *mlx_ptr, const int size_x, const int size_y)
 {
 	const void	*win_ptr = mlx_new_window(mlx_ptr, size_x, size_y, PROGRAM);
 
@@ -36,7 +36,7 @@ void	*ft_mlx_new_window(void *mlx_ptr, int size_x, int size_y)
 	return ((void *)win_ptr);
 }
 
-void	*ft_mlx_new_image(void *mlx_ptr, int width, int height)
+void	*ft_mlx_new_image(void *mlx_ptr, const int width, const int height)
 {
 	const void	*img_ptr = mlx_new_image(mlx_ptr, width, height);
 
@@ -48,12 +48,12 @@ void	*ft_mlx_new_image(void *mlx_ptr, int width, int height)
 	return ((void *)img_ptr);
 }
 
-void	*ft_mlx_xpm_file_to_image(void *mlx_ptr, char *filename)
+void	*ft_mlx_xpm_file_to_image(void *mlx_ptr, const char *filename)
 {
 	int			width;
 	int			height;
 	const void	*img_ptr = \
-		mlx_xpm_file_to_image(mlx_ptr, filename, &width, &height);
+		mlx_xpm_file_to_image(mlx_ptr, (char *)filename, &width, &height);
 
 	if (img_ptr == NULL)
 	{

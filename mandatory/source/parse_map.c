@@ -6,7 +6,7 @@
 /*   By: juwkim <juwkim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 08:11:49 by juwkim            #+#    #+#             */
-/*   Updated: 2023/06/28 08:04:38 by juwkim           ###   ########.fr       */
+/*   Updated: 2023/06/30 10:45:13 by juwkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ bool	parse_map(t_map *const map, const int fd)
 static bool	append_to_board(t_map *const map, const char *line)
 {
 	char	**new_board;
-	int		line_length;
 
 	if (map->board_size == map->board_capacity)
 	{
@@ -49,7 +48,7 @@ static bool	append_to_board(t_map *const map, const char *line)
 		free(map->board);
 		map->board = new_board;
 	}
-	map->board[map->board_size++] = line;
+	map->board[map->board_size++] = (char *)line;
 	return (true);
 }
 
@@ -59,7 +58,7 @@ static bool	is_valid_board(t_map *const map)
 	int					i;
 	int					j;
 	int					player_count;
-	char				*pos;
+	int					pos;
 
 	player_count = 0;
 	i = 0;
