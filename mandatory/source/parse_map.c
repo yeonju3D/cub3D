@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yeongo <yeongo@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: juwkim <juwkim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 08:11:49 by juwkim            #+#    #+#             */
-/*   Updated: 2023/07/03 10:12:39 by yeongo           ###   ########.fr       */
+/*   Updated: 2023/07/09 17:27:07 by juwkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ bool	parse_map(t_map *const map, const int fd)
 			return (false);
 		}
 	}
-	return (is_valid_board(map) == false);
+	return (is_valid_board(map));
 }
 
 static bool	append_to_board(t_map *const map, const char *line)
@@ -54,7 +54,7 @@ static bool	append_to_board(t_map *const map, const char *line)
 
 static bool	is_valid_board(t_map *const map)
 {
-	static const char	*allowed = "NSWE01";
+	static const char	*allowed = " NSWE01";
 	int					i;
 	int					j;
 	int					player_count;
@@ -70,7 +70,7 @@ static bool	is_valid_board(t_map *const map)
 			pos = ft_strchr(allowed, map->board[i][j]) - allowed;
 			if (pos < 0)
 				return (false);
-			if (pos != 5 && is_boundary(i, j, map) == true)
+			if (pos != 6 && is_boundary(i, j, map) == true)
 				return (false);
 			player_count += (pos <= 3);
 			++j;
@@ -82,12 +82,11 @@ static bool	is_valid_board(t_map *const map)
 
 static bool	is_boundary(const int i, const int j, t_map *const map)
 {
-	return (i == 0 || \
-			i == map->board_size - 1 || \
-			j == 0 || \
-			map->board[i][j + 1] == '\0' || \
-			map->board[i - 1][j] == ' ' || \
-			map->board[i + 1][j] == ' ' || \
-			map->board[i][j - 1] == ' ' || \
-			map->board[i][j + 1] == ' ');
+	return (
+		i == 0 || i == map->board_size - 1 || \
+	j == 0 || map->board[i][j + 1] == '\0' || \
+	((int)ft_strlen(map->board[i - 1]) <= j || map->board[i - 1][j] == ' ') || \
+	((int)ft_strlen(map->board[i + 1]) <= j || map->board[i + 1][j] == ' ') || \
+	map->board[i][j - 1] == ' ' || map->board[i][j + 1] == ' '
+	);
 }

@@ -6,7 +6,7 @@
 /*   By: juwkim <juwkim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 06:16:22 by juwkim            #+#    #+#             */
-/*   Updated: 2023/06/30 10:42:19 by juwkim           ###   ########.fr       */
+/*   Updated: 2023/07/09 17:48:00 by juwkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ static bool	set_texture(t_cub3d *const cub3d, const char *line)
 		index = 0;
 		while (rgb[index])
 			free(rgb[index++]);
+		free(rgb);
 	}
 	return (result);
 }
@@ -105,7 +106,7 @@ static bool	set_texture_color(t_cub3d *const cub3d, \
 
 	index = 0;
 	color = 0;
-	while (index < 3)
+	while (index < 3 && rgb[index])
 	{
 		num = ft_atoi(rgb[index]);
 		if (num < 0 || num > 255)

@@ -6,7 +6,7 @@
 /*   By: juwkim <juwkim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 17:49:20 by yeongo            #+#    #+#             */
-/*   Updated: 2023/06/30 10:44:14 by juwkim           ###   ########.fr       */
+/*   Updated: 2023/07/09 17:07:41 by juwkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,9 @@ char	*ft_mlx_get_data_addr(void *img_ptr)
 {
 	int			bits_per_pixel;
 	int			size_line;
+	int			endian;
 	const char	*data_addr = \
-		mlx_get_data_addr(img_ptr, &bits_per_pixel, &size_line, NULL);
+		mlx_get_data_addr(img_ptr, &bits_per_pixel, &size_line, &endian);
 
 	if (data_addr == NULL)
 	{
