@@ -6,7 +6,7 @@
 /*   By: juwkim <juwkim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 06:49:14 by juwkim            #+#    #+#             */
-/*   Updated: 2023/07/17 06:55:45 by juwkim           ###   ########.fr       */
+/*   Updated: 2023/07/17 09:59:03 by juwkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,12 @@
 # define TEX_WID			64
 # define TEX_HEI			64
 
+
 # ifndef M_PI
 #  define M_PI 3.14159265358979323846	/* pi */
 # endif // __M_PI__
+
+# define AOF	0.78539816339			// M_PI / 4
 
 typedef enum e_event
 {

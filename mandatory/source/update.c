@@ -6,7 +6,7 @@
 /*   By: juwkim <juwkim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/16 00:19:54 by juwkim            #+#    #+#             */
-/*   Updated: 2023/07/17 07:25:19 by juwkim           ###   ########.fr       */
+/*   Updated: 2023/07/17 10:03:21 by juwkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,4 +45,8 @@ void	update(t_cub3d *cub3d)
 		cub3d->player.direction += RT_SPEED;
 	else if (cub3d->key == KEY_RIGHT)
 		cub3d->player.direction -= RT_SPEED;
+	if (cub3d->player.direction > 2 * M_PI)
+		cub3d->player.direction -= 2 * M_PI;
+	else if (cub3d->player.direction < 0)
+		cub3d->player.direction += 2 * M_PI;
 }

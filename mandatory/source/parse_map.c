@@ -6,7 +6,7 @@
 /*   By: juwkim <juwkim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 08:11:49 by juwkim            #+#    #+#             */
-/*   Updated: 2023/07/17 09:29:35 by juwkim           ###   ########.fr       */
+/*   Updated: 2023/07/17 10:17:27 by juwkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ static void	check_valid_map(t_map *const map)
 		while (map->board[i][j] != '\0')
 		{
 			pos = ft_strchr(allowed, map->board[i][j]) - allowed;
-			_assert(pos >= 0, "Map inclueds not allowed character\n");
+			_assert(pos >= 0, "Map includes not allowed character\n");
 			_assert(pos >= 5 || is_boundary(i, j, map) == false,
 				"Map boundary includes not wall character\n");
 			player_count += (pos <= 3);
@@ -113,7 +113,7 @@ void	set_player(t_map *const map, t_player *const p)
 				++j;
 				continue ;
 			}
-			_assert(off <= 3, "ft_strchr() failed\n");
+			map->board[i][j] = '0';
 			p->pos.x = i;
 			p->pos.y = j;
 			p->direction = off * M_PI / 2;

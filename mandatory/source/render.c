@@ -6,7 +6,7 @@
 /*   By: juwkim <juwkim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 04:44:24 by juwkim            #+#    #+#             */
-/*   Updated: 2023/07/17 09:31:21 by juwkim           ###   ########.fr       */
+/*   Updated: 2023/07/17 10:16:40 by juwkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,24 +19,24 @@ static void	draw_background(t_cub3d *cub3d)
 	int				i;
 	int				j;
 
-	i = 0;
-	while (i < WIN_WIDTH)
+	j = 0;
+	while (j < WIN_WIDTH)
 	{
-		pixel = simg->addr + i * (simg->bpp / 8);
-		j = 0;
-		while (j < WIN_HEIGHT / 2)
+		pixel = simg->addr + j * (simg->bpp / 8);
+		i = 0;
+		while (i < WIN_HEIGHT / 2)
 		{
 			*(unsigned int *)pixel = cub3d->map.color[CEILING];
 			pixel += simg->len;
-			++j;
+			++i;
 		}
-		while (j < WIN_HEIGHT)
+		while (i < WIN_HEIGHT)
 		{
 			*(unsigned int *)pixel = cub3d->map.color[FLOOR];
 			pixel += simg->len;
-			++j;
+			++i;
 		}
-		++i;
+		++j;
 	}
 }
 
@@ -50,10 +50,7 @@ static void	draw_background(t_cub3d *cub3d)
 // 	i = 0;
 // 	while (i < WIN_WIDTH)
 // 	{
-// 		set_vector(vec, i);
-// 		dda(cub3d, vec, draw);
-// 		if ((vec->side == 0 && vec->ray_dir.x > 0) || (vec->side == 1 && vec->ray_dir.y < 0))
-// 			draw->tex.x = TEX_WID - draw->tex.x - 1;
+		
 // 		j = draw->draw_start - 1;
 // 		set_wall_texture(cub3d);
 // 		while (j < draw->draw_end)
@@ -61,10 +58,10 @@ static void	draw_background(t_cub3d *cub3d)
 // 			draw->tex.y = (int)draw->tex_pos & (TEX_HEI - 1);
 // 			draw->tex_pos += draw->step;
 // 			draw->color = *(unsigned int *)(map->img[draw->wall_idx].addr
-// 					+ (draw->tex.y * map->img[draw->wall_idx].len
-// 						+ draw->tex.x * map->img[draw->wall_idx].bpp / 8));
-// 			pixel = cub3d->img.addr + j * cub3d->img.len + i * (cub3d->img.bpp / 8);
-// 			*(unsigned int *)dst = draw->color;
+// 					+ (draw->tex. * map->img[draw->wall_idx].len
+// 						+ draw->tex.j * map->img[draw->wall_idx].bpp / 8));
+// 			pixel = img->addr + j * img->len + i * (img->bpp / 8);
+// 			*(unsigned int *)pixel = draw->color;
 // 		}
 // 	}
 // }
