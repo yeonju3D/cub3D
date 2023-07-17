@@ -6,7 +6,7 @@
 /*   By: juwkim <juwkim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 08:11:49 by juwkim            #+#    #+#             */
-/*   Updated: 2023/07/17 10:17:27 by juwkim           ###   ########.fr       */
+/*   Updated: 2023/07/17 13:37:51 by juwkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,6 @@ static void	append(t_map *const map, const char *line)
 
 static void	check_valid_map(t_map *const map)
 {
-	static const char	*allowed = "NSWE01 ";
 	int					i;
 	int					j;
 	int					player_count;
@@ -71,8 +70,8 @@ static void	check_valid_map(t_map *const map)
 		j = 0;
 		while (map->board[i][j] != '\0')
 		{
-			pos = ft_strchr(allowed, map->board[i][j]) - allowed;
-			_assert(pos >= 0, "Map includes not allowed character\n");
+			pos = _strfind("NSWE01 ", map->board[i][j]);
+			_assert(pos < 7, "Map includes not allowed character\n");
 			_assert(pos >= 5 || is_boundary(i, j, map) == false,
 				"Map boundary includes not wall character\n");
 			player_count += (pos <= 3);
@@ -85,21 +84,24 @@ static void	check_valid_map(t_map *const map)
 
 static bool	is_boundary(const int i, const int j, t_map *const map)
 {
+	_assert(i != 0, "i is zero\n");
+	_assert(j != 0, "j is zero\n");
+	_assert(i != map->size - 1, "i is map->size - 1\n");
+	_assert(map->board[i][j + 1] != '\0', "map->board[i][j + 1] not null ch\n");
 	return (
-		i == 0 || i == map->size - 1 || \
-	j == 0 || map->board[i][j + 1] == '\0' || \
-	((int)ft_strlen(map->board[i - 1]) <= j || map->board[i - 1][j] == ' ') || \
-	((int)ft_strlen(map->board[i + 1]) <= j || map->board[i + 1][j] == ' ') || \
-	map->board[i][j - 1] == ' ' || map->board[i][j + 1] == ' '
+		(ft_strlen(map->board[i - 1]) <= (size_t)j || \
+		map->board[i - 1][j] == ' ') || \
+		(ft_strlen(map->board[i + 1]) <= (size_t)j || \
+		map->board[i + 1][j] == ' ') || \
+		map->board[i][j - 1] == ' ' || map->board[i][j + 1] == ' '
 	);
 }
 
 void	set_player(t_map *const map, t_player *const p)
 {
-	static const char	*allowed = "SENW";
-	int					i;
-	int					j;
-	int					off;
+	int			i;
+	int			j;
+	int			off;
 
 	i = 0;
 	while (i < map->size)
@@ -107,15 +109,15 @@ void	set_player(t_map *const map, t_player *const p)
 		j = 0;
 		while (map->board[i][j] != '\0')
 		{
-			off = ft_strchr(allowed, map->board[i][j]) - allowed;
-			if (off < 0)
+			off = _strfind("SENW", map->board[i][j]);
+			if (off == 4)
 			{
 				++j;
 				continue ;
 			}
 			map->board[i][j] = '0';
-			p->pos.x = i;
-			p->pos.y = j;
+			p->pos.i = i;
+			p->pos.j = j;
 			p->direction = off * M_PI / 2;
 			return ;
 		}

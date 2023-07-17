@@ -6,7 +6,7 @@
 /*   By: juwkim <juwkim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 07:07:29 by juwkim            #+#    #+#             */
-/*   Updated: 2023/07/17 04:45:36 by juwkim           ###   ########.fr       */
+/*   Updated: 2023/07/17 13:14:23 by juwkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,4 +46,13 @@ int	_atoi(const char *nptr)
 	if (sign == 1)
 		return (-num);
 	return (num);
+}
+
+int	_strfind(const char *s, char c)
+{
+	const char	*cur = s;
+
+	while (*cur != '\0' && *cur != c)
+		++cur;
+	return (cur - s);
 }

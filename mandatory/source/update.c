@@ -6,7 +6,7 @@
 /*   By: juwkim <juwkim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/16 00:19:54 by juwkim            #+#    #+#             */
-/*   Updated: 2023/07/17 10:28:29 by juwkim           ###   ########.fr       */
+/*   Updated: 2023/07/17 12:40:04 by juwkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,13 @@
 
 static void	move(const char **board, t_pos *const pos, double direction)
 {
-	const double	x = pos->x + cos(direction) * MV_SPEED;
-	const double	y = pos->y + sin(direction) * MV_SPEED;
+	const double	i = pos->i + cos(direction) * MV_SPEED;
+	const double	j = pos->j + sin(direction) * MV_SPEED;
 
-	if (board[(int)x][(int)pos->y] != '1')
-		pos->x = x;
-	if (board[(int)pos->x][(int)y] != '1')
-		pos->y = y;
+	if (board[(int)i][(int)pos->j] != '1')
+		pos->i = i;
+	if (board[(int)pos->i][(int)j] != '1')
+		pos->j = j;
 }
 
 void	update(t_cub3d *cub3d)
@@ -30,11 +30,11 @@ void	update(t_cub3d *cub3d)
 	direction = -1.0f;
 	if (cub3d->key == KEY_W)
 		direction = cub3d->player.direction + 0 * M_PI / 2;
-	else if (cub3d->key == KEY_A)
+	else if (cub3d->key == KEY_D)
 		direction = cub3d->player.direction + 1 * M_PI / 2;
 	else if (cub3d->key == KEY_S)
 		direction = cub3d->player.direction + 2 * M_PI / 2;
-	else if (cub3d->key == KEY_D)
+	else if (cub3d->key == KEY_A)
 		direction = cub3d->player.direction + 3 * M_PI / 2;
 	if (direction > 0)
 	{
@@ -42,9 +42,9 @@ void	update(t_cub3d *cub3d)
 		return ;
 	}
 	if (cub3d->key == KEY_LEFT)
-		cub3d->player.direction += RT_SPEED;
-	else if (cub3d->key == KEY_RIGHT)
 		cub3d->player.direction -= RT_SPEED;
+	else if (cub3d->key == KEY_RIGHT)
+		cub3d->player.direction += RT_SPEED;
 	if (cub3d->player.direction > 2 * M_PI)
 		cub3d->player.direction -= 2 * M_PI;
 	else if (cub3d->player.direction < 0)

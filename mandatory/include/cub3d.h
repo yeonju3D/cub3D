@@ -6,7 +6,7 @@
 /*   By: juwkim <juwkim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 06:49:14 by juwkim            #+#    #+#             */
-/*   Updated: 2023/07/17 10:56:40 by juwkim           ###   ########.fr       */
+/*   Updated: 2023/07/17 13:07:11 by juwkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,12 +38,11 @@
 # define TEX_WID			64
 # define TEX_HEI			64
 
-
 # ifndef M_PI
 #  define M_PI 3.14159265358979323846	/* pi */
 # endif // __M_PI__
 
-# define AOF	0.78539816339			// M_PI / 4
+# define AOF	3.14			// M_PI / 2
 
 typedef enum e_event
 {
@@ -106,8 +105,8 @@ typedef enum e_direction
 
 typedef struct s_pos
 {
-	double	x;
-	double	y;
+	double	i;
+	double	j;
 }	t_pos;
 
 typedef struct s_img
