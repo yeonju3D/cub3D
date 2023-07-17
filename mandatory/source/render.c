@@ -6,24 +6,26 @@
 /*   By: juwkim <juwkim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 04:44:24 by juwkim            #+#    #+#             */
-/*   Updated: 2023/07/17 19:50:21 by juwkim           ###   ########.fr       */
+/*   Updated: 2023/07/17 23:58:45 by juwkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "render.h"
+#include "raycasting.h"
 
-static void	render_background(t_cub3d *cub3d);
-static void	render_wall(t_cub3d *const cub3d, t_img *img);
-static void	raycasting(t_cub3d *const cub3d, double direction, t_texture *tex);
+static void	set_buf(t_cub3d *const cub3d);
+static void	set_screen(unsigned int *buf, t_img *screen);
 
 void	render(t_cub3d *cub3d)
 {
-	render_background(cub3d);
-	render_wall(cub3d, &cub3d->screen);
+	ft_memcpy(cub3d->buf, cub3d->bg, \
+		sizeof(unsigned int) * WIN_HEIGHT * WIN_WIDTH);
+	set_buf(cub3d);
+	set_screen(cub3d->buf, &cub3d->screen);
 	mlx_put_image_to_window(cub3d->mlx, cub3d->win, cub3d->screen.pixels, 0, 0);
 }
 
-static void	render_background(t_cub3d *cub3d)
+void	render_background(t_cub3d *cub3d)
 {
 	t_img *const	simg = &cub3d->screen;
 	char			*pixel;
@@ -37,27 +39,24 @@ static void	render_background(t_cub3d *cub3d)
 		i = 0;
 		while (i < WIN_HEIGHT / 2)
 		{
-			*(unsigned int *)pixel = cub3d->color[CEILING];
-			pixel += simg->len;
+			cub3d->bg[i * WIN_WIDTH + j] = cub3d->color[CEILING];
 			++i;
 		}
 		while (i < WIN_HEIGHT)
 		{
-			*(unsigned int *)pixel = cub3d->color[FLOOR];
-			pixel += simg->len;
+			cub3d->bg[i * WIN_WIDTH + j] = cub3d->color[FLOOR];
 			++i;
 		}
 		++j;
 	}
 }
 
-static void	render_wall(t_cub3d *const cub3d, t_img *img)
+static void	set_buf(t_cub3d *const cub3d)
 {
-	int			i;
-	int			j;
-	int			color;
-	char		*pixel;
-	t_texture	tex;
+	int				i;
+	int				j;
+	unsigned int	color;
+	t_texture		tex;
 
 	j = 0;
 	while (j < WIN_WIDTH)
@@ -67,62 +66,41 @@ static void	render_wall(t_cub3d *const cub3d, t_img *img)
 		i = tex.start;
 		while (i <= tex.end)
 		{
-			color = *(unsigned int *)(tex.img->addr + \
-				(TEX_HEIGHT - 1) * (i - tex.start) / (tex.end - tex.start) * \
-				tex.img->len + tex.off * tex.img->bpp / 8);
-			pixel = img->addr + i * img->len + j * (img->bpp / 8);
-			*(unsigned int *)pixel = color;
+			if (0 <= i && i < WIN_HEIGHT)
+			{
+				color = *(unsigned int *)(tex.img->addr + (TEX_HEIGHT - 1) * \
+					(i - tex.start) / (tex.end - tex.start) * tex.img->len + \
+					tex.off * tex.img->bpp / 8);
+				cub3d->buf[i * WIN_WIDTH + j] = color;
+			}
 			++i;
 		}
 		++j;
 	}
 }
 
-static void	raycasting(t_cub3d *const cub3d, double direction, t_texture *tex)
+static void	set_screen(unsigned int *buf, t_img *screen)
 {
-	const double	lr = 0.005;
-	double			i;
-	double			j;
-	double			di;
-	double			dj;
+	int				i;
+	int				j;
+	char			*pixel;
+	unsigned int	mixed;
 
-	i = cub3d->player.pos.i;
-	j = cub3d->player.pos.j;
-	double c = lr * cos(direction);
-	double s = lr * sin(direction);
-	while (true)
+	j = 1;
+	while (j < WIN_WIDTH - 1)
 	{
-		i += c;
-		j += s;
-		if (cub3d->map.board[(int)i][(int)j] == '1')
-			break ;
+		i = 1;
+		while (i < WIN_HEIGHT - 1)
+		{
+			pixel = screen->addr + i * screen->len + j * (screen->bpp / 8);
+			mixed = (buf[(i - 1) * WIN_WIDTH + j] + \
+						buf[(i + 1) * WIN_WIDTH + j] + \
+						buf[i * WIN_WIDTH + j] + \
+						buf[i * WIN_WIDTH + j - 1] + \
+						buf[i * WIN_WIDTH + j + 1]) / 5;
+			*(unsigned int *)pixel = mixed;
+			++i;
+		}
+		++j;
 	}
-	double dist = sqrt((i - cub3d->player.pos.i) * (i - cub3d->player.pos.i) + (j - cub3d->player.pos.j) * (j - cub3d->player.pos.j));
-	di = i - (int)i;
-	dj = j - (int)j;
-	if (di + dj > 1 && di > dj)
-	{
-		tex->img = &cub3d->img[SOUTH];
-		tex->off = (int)(dj * TEX_WIDTH);
-	}
-	else if (di + dj > 1 && di <= dj)
-	{
-		tex->img = &cub3d->img[WEST];
-		tex->off = (int)((1 - di) * TEX_WIDTH);
-	}
-	else if (di > dj)
-	{
-		tex->img = &cub3d->img[EAST];
-		tex->off = (int)(di * TEX_WIDTH);
-	}
-	else
-	{
-		tex->img = &cub3d->img[NORTH];
-		tex->off = (int)((1 - dj) * TEX_WIDTH);
-	}
-	dist *= cos(fabs(direction - cub3d->player.direction));
-	if (dist < 1)
-		dist = 1;
-	tex->start = (int)(0.5 * WIN_HEIGHT - 0.3 * WIN_HEIGHT / dist);
-	tex->end = (int)(0.5 * WIN_HEIGHT + 0.3 * WIN_HEIGHT / dist);
 }

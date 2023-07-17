@@ -6,7 +6,7 @@
 #    By: juwkim <juwkim@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/08 10:26:53 by yeongo            #+#    #+#              #
-#    Updated: 2023/07/17 20:44:09 by juwkim           ###   ########.fr        #
+#    Updated: 2023/07/17 23:45:56 by juwkim           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -64,7 +64,7 @@ DEP_DIR				:=	$(BUILD_DIR)/dependency
 #    Define the source files                                                   #
 # ---------------------------------------------------------------------------- #
 
-SRCS_FILES			:=	main.c utils.c parse_texture.c parse_map.c event.c update.c render.c
+SRCS_FILES			:=	main.c utils.c parse_texture.c parse_map.c event.c update.c render.c raycasting.c
 ifdef BONUS
 	SRCS_FILES		:=	$(patsubst %.c, %_bonus.c, $(SRCS_FILES))
 endif

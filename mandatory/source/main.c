@@ -6,7 +6,7 @@
 /*   By: juwkim <juwkim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 21:23:18 by yeongo            #+#    #+#             */
-/*   Updated: 2023/07/17 20:16:37 by juwkim           ###   ########.fr       */
+/*   Updated: 2023/07/17 23:24:24 by juwkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ int	main(int argc, char *argv[])
 	parse_texture(&cub3d, fd);
 	parse_map(&cub3d, fd);
 	_assert(cub3d.player.direction > 0, "Player search failed\n");
+	render_background(&cub3d);
 	mlx_hook(cub3d.win, ON_KEYDOWN, KEY_PRESS_MASK, key_down, &cub3d);
 	mlx_hook(cub3d.win, ON_KEYUP, KEY_RELEASE_MASK, key_up, &cub3d);
 	mlx_hook(cub3d.win, ON_DESTORY, BUTTON_PRESS_MASK, destroy, &cub3d);
@@ -54,11 +55,21 @@ static void	init(t_cub3d *const cub3d, t_img *const	screen)
 	cub3d->key = KEY_RELESED;
 	cub3d->map.capacity = 128;
 	cub3d->map.board = (char **)malloc(sizeof(char *) * cub3d->map.capacity);
+	_assert(cub3d->map.board != NULL, "malloc() failed\n");
+	cub3d->bg = (unsigned int *)malloc(sizeof(unsigned int) * WIN_HEIGHT * \
+		WIN_WIDTH);
+	_assert(cub3d->bg != NULL, "malloc() failed\n");
+	cub3d->buf = (unsigned int *)malloc(sizeof(unsigned int) * WIN_HEIGHT * \
+		WIN_WIDTH);
+	_assert(cub3d->buf != NULL, "malloc() failed\n");
 }
 
 static int	game_loop(t_cub3d *cub3d)
 {
-	update(cub3d);
-	render(cub3d);
+	static bool	updated = true;
+
+	if (updated)
+		render(cub3d);
+	updated = update(cub3d);
 	return (0);
 }

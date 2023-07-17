@@ -6,7 +6,7 @@
 /*   By: juwkim <juwkim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/16 00:20:39 by juwkim            #+#    #+#             */
-/*   Updated: 2023/07/17 03:40:18 by juwkim           ###   ########.fr       */
+/*   Updated: 2023/07/17 21:50:38 by juwkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,6 @@
 
 # include "cub3d.h"
 
-void	update(t_cub3d *cub3d);
+bool	update(t_cub3d *cub3d);
 
 #endif // __UPDATE_H__

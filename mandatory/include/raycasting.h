@@ -1,21 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   render.h                                           :+:      :+:    :+:   */
+/*   raycasting.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: juwkim <juwkim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/17 04:43:07 by juwkim            #+#    #+#             */
-/*   Updated: 2023/07/17 22:37:49 by juwkim           ###   ########.fr       */
+/*   Created: 2023/07/17 23:44:57 by juwkim            #+#    #+#             */
+/*   Updated: 2023/07/17 23:58:11 by juwkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef RENDER_H
-# define RENDER_H
+#ifndef RAYCASTING_H
+# define RAYCASTING_H
 
 # include "cub3d.h"
 
-void	render(t_cub3d *cub3d);
-void	render_background(t_cub3d *cub3d);
+void	raycasting(t_cub3d *const cub3d, double direction, t_texture *tex);
 
-#endif // __RENDER_H__
+#endif // __RAYCASTING_H__
