@@ -6,7 +6,7 @@
 /*   By: juwkim <juwkim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/16 00:19:54 by juwkim            #+#    #+#             */
-/*   Updated: 2023/07/17 12:40:04 by juwkim           ###   ########.fr       */
+/*   Updated: 2023/07/17 19:25:51 by juwkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,11 @@ static void	move(const char **board, t_pos *const pos, double direction)
 	const double	i = pos->i + cos(direction) * MV_SPEED;
 	const double	j = pos->j + sin(direction) * MV_SPEED;
 
-	if (board[(int)i][(int)pos->j] != '1')
+	if (board[(int)i][(int)pos->j] != '1' && board[(int)pos->i][(int)j] != '1')
+	{
 		pos->i = i;
-	if (board[(int)pos->i][(int)j] != '1')
 		pos->j = j;
+	}
 }
 
 void	update(t_cub3d *cub3d)

@@ -6,7 +6,7 @@
 /*   By: juwkim <juwkim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 04:44:24 by juwkim            #+#    #+#             */
-/*   Updated: 2023/07/17 14:00:43 by juwkim           ###   ########.fr       */
+/*   Updated: 2023/07/17 19:50:21 by juwkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,13 @@ static void	raycasting(t_cub3d *const cub3d, double direction, t_texture *tex);
 void	render(t_cub3d *cub3d)
 {
 	render_background(cub3d);
-	render_wall(cub3d, &cub3d->img);
-	mlx_put_image_to_window(cub3d->mlx, cub3d->win, cub3d->img.pixel, 0, 0);
+	render_wall(cub3d, &cub3d->screen);
+	mlx_put_image_to_window(cub3d->mlx, cub3d->win, cub3d->screen.pixels, 0, 0);
 }
 
 static void	render_background(t_cub3d *cub3d)
 {
-	t_img *const	simg = &cub3d->img;
+	t_img *const	simg = &cub3d->screen;
 	char			*pixel;
 	int				i;
 	int				j;
@@ -37,13 +37,13 @@ static void	render_background(t_cub3d *cub3d)
 		i = 0;
 		while (i < WIN_HEIGHT / 2)
 		{
-			*(unsigned int *)pixel = cub3d->map.color[CEILING];
+			*(unsigned int *)pixel = cub3d->color[CEILING];
 			pixel += simg->len;
 			++i;
 		}
 		while (i < WIN_HEIGHT)
 		{
-			*(unsigned int *)pixel = cub3d->map.color[FLOOR];
+			*(unsigned int *)pixel = cub3d->color[FLOOR];
 			pixel += simg->len;
 			++i;
 		}
@@ -68,7 +68,7 @@ static void	render_wall(t_cub3d *const cub3d, t_img *img)
 		while (i <= tex.end)
 		{
 			color = *(unsigned int *)(tex.img->addr + \
-				(TEX_HEI - 1) * (i - tex.start) / (tex.end - tex.start) * \
+				(TEX_HEIGHT - 1) * (i - tex.start) / (tex.end - tex.start) * \
 				tex.img->len + tex.off * tex.img->bpp / 8);
 			pixel = img->addr + i * img->len + j * (img->bpp / 8);
 			*(unsigned int *)pixel = color;
@@ -102,23 +102,23 @@ static void	raycasting(t_cub3d *const cub3d, double direction, t_texture *tex)
 	dj = j - (int)j;
 	if (di + dj > 1 && di > dj)
 	{
-		tex->img = &cub3d->map.img[SOUTH];
-		tex->off = (int)(dj * TEX_WID);
+		tex->img = &cub3d->img[SOUTH];
+		tex->off = (int)(dj * TEX_WIDTH);
 	}
 	else if (di + dj > 1 && di <= dj)
 	{
-		tex->img = &cub3d->map.img[WEST];
-		tex->off = (int)((1 - di) * TEX_WID);
+		tex->img = &cub3d->img[WEST];
+		tex->off = (int)((1 - di) * TEX_WIDTH);
 	}
 	else if (di > dj)
 	{
-		tex->img = &cub3d->map.img[EAST];
-		tex->off = (int)(di * TEX_WID);
+		tex->img = &cub3d->img[EAST];
+		tex->off = (int)(di * TEX_WIDTH);
 	}
 	else
 	{
-		tex->img = &cub3d->map.img[NORTH];
-		tex->off = (int)((1 - dj) * TEX_WID);
+		tex->img = &cub3d->img[NORTH];
+		tex->off = (int)((1 - dj) * TEX_WIDTH);
 	}
 	dist *= cos(fabs(direction - cub3d->player.direction));
 	if (dist < 1)
@@ -126,11 +126,3 @@ static void	raycasting(t_cub3d *const cub3d, double direction, t_texture *tex)
 	tex->start = (int)(0.5 * WIN_HEIGHT - 0.3 * WIN_HEIGHT / dist);
 	tex->end = (int)(0.5 * WIN_HEIGHT + 0.3 * WIN_HEIGHT / dist);
 }
-
-// typedef struct s_texture
-// {
-// 	t_img	*img;
-// 	int		off;
-// 	int		start;
-// 	int		end;
-// }	t_texture;

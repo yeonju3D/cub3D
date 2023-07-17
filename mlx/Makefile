@@ -8,14 +8,37 @@ OBJ1=$(SRC:.c=.o)
 OBJ=$(OBJ1:.m=.o)
 CFLAGS+=-O2
 
+# ---------------------------------------------------------------------------- #
+#    Define the variables for progress bar                                     #
+# ---------------------------------------------------------------------------- #
+
+TOTAL_FILES			:=	$(shell echo $(SRC) | wc -w)
+COMPILED_FILES		:=	0
+STEP				:=	100
+
 # add to match string put with X11 in size and position
 CFLAGS+= -DSTRINGPUTX11
 
 all: $(NOM)
 
 $(NOM):	$(OBJ)
-	ar -r $(NOM) $(OBJ)
-	ranlib $(NOM)
+	@ar -r $(NOM) $(OBJ)
+	@ranlib $(NOM)
+	@printf "\n$(MAGENTA)[$(NOM)] Linking Success\n$(DEF_COLOR)"
+
+%.o: %.m
+	@$(CC) $(CFLAGS) -c $< -o $@
+	@$(eval COMPILED_FILES = $(shell expr $(COMPILED_FILES) + 1))
+	@$(eval PROGRESS = $(shell expr $(COMPILED_FILES) "*" $(STEP) / $(TOTAL_FILES)))
+	@printf "                                                                                                   \r"
+	@printf "$(YELLOW)[$(NOM)] [%02d/%02d] ( %3d %%) Compiling $<\r$(DEF_COLOR)" $(COMPILED_FILES) $(TOTAL_FILES) $(PROGRESS)
+
+%.o: %.c
+	@$(CC) $(CFLAGS) -c $< -o $@
+	@$(eval COMPILED_FILES = $(shell expr $(COMPILED_FILES) + 1))
+	@$(eval PROGRESS = $(shell expr $(COMPILED_FILES) "*" $(STEP) / $(TOTAL_FILES)))
+	@printf "                                                                                                   \r"
+	@printf "$(YELLOW)[$(NOM)] [%02d/%02d] ( %3d %%) Compiling $<\r$(DEF_COLOR)" $(COMPILED_FILES) $(TOTAL_FILES) $(PROGRESS)
 
 clean:
 	@$(RM) -f $(NOM) $(OBJ) *~

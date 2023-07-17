@@ -6,7 +6,7 @@
 /*   By: juwkim <juwkim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 03:57:34 by juwkim            #+#    #+#             */
-/*   Updated: 2023/07/17 05:58:26 by juwkim           ###   ########.fr       */
+/*   Updated: 2023/07/17 19:50:02 by juwkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,11 @@ int	destroy(t_cub3d *cub3d)
 {
 	int	i;
 
-	mlx_destroy_image(cub3d->mlx, cub3d->img.pixel);
-	mlx_destroy_image(cub3d->mlx, cub3d->map.img[NORTH].pixel);
-	mlx_destroy_image(cub3d->mlx, cub3d->map.img[SOUTH].pixel);
-	mlx_destroy_image(cub3d->mlx, cub3d->map.img[WEST].pixel);
-	mlx_destroy_image(cub3d->mlx, cub3d->map.img[EAST].pixel);
+	mlx_destroy_image(cub3d->mlx, cub3d->screen.pixels);
+	mlx_destroy_image(cub3d->mlx, cub3d->img[NORTH].pixels);
+	mlx_destroy_image(cub3d->mlx, cub3d->img[SOUTH].pixels);
+	mlx_destroy_image(cub3d->mlx, cub3d->img[WEST].pixels);
+	mlx_destroy_image(cub3d->mlx, cub3d->img[EAST].pixels);
 	mlx_destroy_window(cub3d->mlx, cub3d->win);
 	i = 0;
 	while (i < cub3d->map.size)

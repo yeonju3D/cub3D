@@ -6,7 +6,7 @@
 /*   By: juwkim <juwkim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 06:49:14 by juwkim            #+#    #+#             */
-/*   Updated: 2023/07/17 13:07:11 by juwkim           ###   ########.fr       */
+/*   Updated: 2023/07/17 19:45:17 by juwkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,20 +30,22 @@
 # define PROGRAM			"cub3D"
 # define WIN_HEIGHT			1080
 # define WIN_WIDTH			1920
-# define DIRECTION_COUNT	6
+# define IMAGE_COUNT		4
+# define COLOR_COUNT		2
 
 # define MV_SPEED			0.05
-# define RT_SPEED			0.03
+# define RT_SPEED			0.05
 
-# define TEX_WID			64
-# define TEX_HEI			64
+# define TEX_WIDTH			64
+# define TEX_HEIGHT			64
 
 # ifndef M_PI
 #  define M_PI 3.14159265358979323846	/* pi */
 # endif // __M_PI__
 
-# define AOF	3.14			// M_PI / 2
+# define AOF				M_PI
 
+typedef unsigned int	t_color;
 typedef enum e_event
 {
 	ON_KEYDOWN = 2,
@@ -111,10 +113,10 @@ typedef struct s_pos
 
 typedef struct s_img
 {
-	void	*pixel;
+	void	*pixels;
+	char	*addr;
 	int		width;
 	int		height;
-	char	*addr;
 	int		bpp;
 	int		len;
 	int		endian;
@@ -122,11 +124,9 @@ typedef struct s_img
 
 typedef struct s_map
 {
-	char			**board;
-	int				size;
-	int				capacity;
-	t_img			img[4];
-	unsigned int	color[6];
+	char	**board;
+	int		size;
+	int		capacity;
 }	t_map;
 
 typedef struct s_player
@@ -148,8 +148,10 @@ typedef struct s_cub3d
 	void		*mlx;
 	void		*win;
 	t_key		key;
-	t_img		img;
+	t_img		screen;
 	t_map		map;
+	t_img		img[IMAGE_COUNT];
+	t_color		color[IMAGE_COUNT + COLOR_COUNT];
 	t_player	player;
 }	t_cub3d;
 
