@@ -6,7 +6,7 @@
 #    By: juwkim <juwkim@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/08 10:26:53 by yeongo            #+#    #+#              #
-#    Updated: 2023/06/30 11:17:00 by juwkim           ###   ########.fr        #
+#    Updated: 2023/07/17 07:35:33 by juwkim           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,13 +16,16 @@
 
 CC					:=	cc
 CFLAGS				:=	-Wall -Wextra -Werror
-CPPFLAGS			=	-I $(PROJECT_DIR)/include -I $(LIBFT)/include -I $(LIBMLX)
+CPPFLAGS			=	-I$(PROJECT_DIR)/include -I$(LIBFT)/include -I$(LIBMLX)
 DEPFLAGS			=	-MMD -MP -MF $(DEP_DIR)/$*.d
-LDFLAGS				=	-framework OpenGL -framework Appkit -L $(LIBFT) -L $(LIBMLX)
-LDLIBS				:=	-l ft -l mlx
+LDFLAGS				=	-L$(LIBFT) -L$(LIBMLX)
+LDLIBS				=	-lft -l$(LIBMLX)
 
 ifeq ($(shell uname -s), Linux)
 	CFLAGS			+=	-Wno-unused-result
+	LDLIBS			+= -lXext -lX11 -lm -lz
+else
+	LDLIBS			+= -framework OpenGL -framework Appkit
 endif
 
 ifdef	DEBUG
@@ -36,7 +39,11 @@ endif
 # ---------------------------------------------------------------------------- #
 
 LIBFT				:=	libft
-LIBMLX				:=	libmlx
+ifeq ($(shell uname -s), Linux)
+	LIBMLX				:=	mlx_Linux
+else
+	LIBMLX				:=	mlx
+endif
 
 # ---------------------------------------------------------------------------- #
 #    Define the directories                                                    #
@@ -57,7 +64,7 @@ DEP_DIR				:=	$(BUILD_DIR)/dependency
 #    Define the source files                                                   #
 # ---------------------------------------------------------------------------- #
 
-SRCS_FILES			:=	main.c utils.c ft_mlx.c parse.c parse_texture.c parse_map.c
+SRCS_FILES			:=	main.c utils.c parse_texture.c parse_map.c event.c update.c render.c
 ifdef BONUS
 	SRCS_FILES		:=	$(patsubst %.c, %_bonus.c, $(SRCS_FILES))
 endif
@@ -90,7 +97,7 @@ all:
 	@$(MAKE) $(NAME)
 
 $(NAME): $(OBJS)
-	@$(CC) $(CFLAGS) $(LDFLAGS) $^ -o $@ $(LDLIBS)
+	@$(CC) $(LDFLAGS) $^ -o $@ $(LDLIBS)
 	@printf "\n$(MAGENTA)[$(NAME)] Linking Success\n$(DEF_COLOR)"
 
 $(OBJ_DIR)/%.o : $(SRC_DIR)/%.c | dir_guard

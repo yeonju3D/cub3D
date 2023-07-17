@@ -6,7 +6,7 @@
 /*   By: juwkim <juwkim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/04 00:47:12 by juwkim            #+#    #+#             */
-/*   Updated: 2023/06/28 05:11:49 by juwkim           ###   ########.fr       */
+/*   Updated: 2023/07/17 06:26:41 by juwkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,10 @@ char	*ft_get_next_line(int fd)
 	read_size = read(fd, buf, BUFSIZE);
 	while (read_size > 0 && get_line(buf, &rest, read_size, &line) == 0)
 		read_size = read(fd, buf, BUFSIZE);
+	if (line)
+		return (line);
+	line = rest;
+	rest = NULL;
 	return (line);
 }
 

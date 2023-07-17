@@ -1,24 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_mlx.h                                           :+:      :+:    :+:   */
+/*   event.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: juwkim <juwkim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/11 16:42:59 by yeongo            #+#    #+#             */
-/*   Updated: 2023/06/30 10:43:42 by juwkim           ###   ########.fr       */
+/*   Created: 2023/07/17 04:01:25 by juwkim            #+#    #+#             */
+/*   Updated: 2023/07/17 05:57:02 by juwkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_MLX_H
-# define FT_MLX_H
+#ifndef EVENT_H
+# define EVENT_H
 
 # include "cub3d.h"
 
-void	*ft_mlx_init(void);
-void	*ft_mlx_new_window(void *mlx_ptr, const int size_x, const int size_y);
-void	*ft_mlx_new_image(void *mlx_ptr, const int width, const int height);
-void	*ft_mlx_xpm_file_to_image(void *mlx_ptr, const char *filename);
-char	*ft_mlx_get_data_addr(void *img_ptr);
+int	key_down(int keycode, t_cub3d *cub3d);
+int	key_up(int keycode, t_cub3d *cub3d);
+int	destroy(t_cub3d *cub3d);
 
-#endif // __FT_MLX_H__
+#endif // __EVENT_H__

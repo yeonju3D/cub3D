@@ -1,18 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse.c                                            :+:      :+:    :+:   */
+/*   render.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: juwkim <juwkim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/24 08:15:58 by juwkim            #+#    #+#             */
-/*   Updated: 2023/06/28 08:05:13 by juwkim           ###   ########.fr       */
+/*   Created: 2023/07/17 04:43:07 by juwkim            #+#    #+#             */
+/*   Updated: 2023/07/17 05:25:01 by juwkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parse.h"
+#ifndef RENDER_H
+# define RENDER_H
 
-bool	parse(t_cub3d *const cub3d, const int fd)
-{
-	return (parse_texture(cub3d, fd) && parse_map(&cub3d->map, fd));
-}
+# include "cub3d.h"
+
+void	set_vector(t_vec *vec, int x);
+void	dda(t_cub3d *cub3d, t_vec *vec, t_draw *draw);
+void	set_wall_texture(t_cub3d *cub3d);
+
+void	render(t_cub3d *cub3d);
+
+#endif // __RENDER_H__

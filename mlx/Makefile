@@ -26,7 +26,7 @@ fclean: clean
 	@$(RM) -f mlx_app
 	@printf "$(CYAN)[LIBMLX] exec. files$(DEF_COLOR)$(GREEN)	=> Cleaned!\n$(DEF_COLOR)"
 
-re: clean all fclean
+re: clean all
 
 # ---------------------------------------------------------------------------- #
 #    Define the colors                                                         #
