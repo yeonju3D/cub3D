@@ -6,7 +6,7 @@
 /*   By: juwkim <juwkim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 06:49:14 by juwkim            #+#    #+#             */
-/*   Updated: 2023/07/17 09:59:03 by juwkim           ###   ########.fr       */
+/*   Updated: 2023/07/17 10:56:40 by juwkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,33 +136,13 @@ typedef struct s_player
 	double	direction;
 }	t_player;
 
-typedef struct s_vec
+typedef struct s_texture
 {
-	t_pos	pos;
-	t_pos	dir;
-	t_pos	plane;
-	t_pos	map;
-	t_pos	step;
-	int		side;
-	double	camera_x;
-	t_pos	ray_dir;
-	t_pos	side_dist;
-	t_pos	delta_dist;
-	double	perp_wall_dist;
-}	t_vec;
-
-typedef struct s_draw
-{
-	int		line_hei;
-	int		draw_start;
-	int		draw_end;
-	int		wall_idx;
-	double	wall_x;
-	double	tex_pos;
-	double	step;
-	int		color;
-	t_pos	tex;
-}	t_draw;
+	t_img	*img;
+	int		off;
+	int		start;
+	int		end;
+}	t_texture;
 
 typedef struct s_cub3d
 {
@@ -172,7 +152,6 @@ typedef struct s_cub3d
 	t_img		img;
 	t_map		map;
 	t_player	player;
-	t_draw		draw;
 }	t_cub3d;
 
 #endif // __CUB3D_H__
