@@ -6,7 +6,7 @@
 /*   By: juwkim <juwkim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 04:44:24 by juwkim            #+#    #+#             */
-/*   Updated: 2023/07/17 23:58:45 by juwkim           ###   ########.fr       */
+/*   Updated: 2023/07/19 11:56:57 by juwkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,15 +27,12 @@ void	render(t_cub3d *cub3d)
 
 void	render_background(t_cub3d *cub3d)
 {
-	t_img *const	simg = &cub3d->screen;
-	char			*pixel;
-	int				i;
-	int				j;
+	int	i;
+	int	j;
 
 	j = 0;
 	while (j < WIN_WIDTH)
 	{
-		pixel = simg->addr + j * (simg->bpp / 8);
 		i = 0;
 		while (i < WIN_HEIGHT / 2)
 		{
@@ -61,8 +58,8 @@ static void	set_buf(t_cub3d *const cub3d)
 	j = 0;
 	while (j < WIN_WIDTH)
 	{
-		raycasting(cub3d, cub3d->player.direction - AOF / 2 + \
-			AOF * j / WIN_WIDTH, &tex);
+		raycasting(cub3d, cub3d->player.direction + AOF / 2 + \
+			- AOF * j / WIN_WIDTH, &tex);
 		i = tex.start;
 		while (i <= tex.end)
 		{
@@ -93,11 +90,12 @@ static void	set_screen(unsigned int *buf, t_img *screen)
 		while (i < WIN_HEIGHT - 1)
 		{
 			pixel = screen->addr + i * screen->len + j * (screen->bpp / 8);
-			mixed = (buf[(i - 1) * WIN_WIDTH + j] + \
-						buf[(i + 1) * WIN_WIDTH + j] + \
-						buf[i * WIN_WIDTH + j] + \
-						buf[i * WIN_WIDTH + j - 1] + \
-						buf[i * WIN_WIDTH + j + 1]) / 5;
+			mixed = buf[i * WIN_WIDTH + j];
+			// mixed = (buf[(i - 1) * WIN_WIDTH + j] +
+			// 			buf[(i + 1) * WIN_WIDTH + j] +
+			// 			buf[i * WIN_WIDTH + j] +
+			// 			buf[i * WIN_WIDTH + j - 1] +
+			// 			buf[i * WIN_WIDTH + j + 1]) / 5;
 			*(unsigned int *)pixel = mixed;
 			++i;
 		}

@@ -1,7 +1,6 @@
 .DS_Store
 .vscode
 .cache
-compile_commands.json
 */build
 libmlx/*.o
 libmlx/*.a

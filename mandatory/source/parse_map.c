@@ -6,7 +6,7 @@
 /*   By: juwkim <juwkim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 08:11:49 by juwkim            #+#    #+#             */
-/*   Updated: 2023/07/17 20:46:00 by juwkim           ###   ########.fr       */
+/*   Updated: 2023/07/19 11:46:19 by juwkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	parse_map(t_cub3d *const cub3d, const int fd)
 	char	*line;
 
 	line = ft_get_next_line(fd);
-	while (line && strcmp(line, "") == 0)
+	while (line && ft_strcmp(line, "") == 0)
 	{
 		free(line);
 		line = ft_get_next_line(fd);
@@ -34,7 +34,7 @@ void	parse_map(t_cub3d *const cub3d, const int fd)
 		line = ft_get_next_line(fd);
 		if (line == NULL)
 			break ;
-		_assert(strcmp(line, "") != 0, "Empty line in map\n");
+		_assert(ft_strcmp(line, "") != 0, "Empty line in map\n");
 	}
 	check_valid_map(&cub3d->map);
 	set_player(&cub3d->map, &cub3d->player);

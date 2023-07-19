@@ -6,7 +6,7 @@
 /*   By: juwkim <juwkim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/16 00:19:54 by juwkim            #+#    #+#             */
-/*   Updated: 2023/07/17 23:27:09 by juwkim           ###   ########.fr       */
+/*   Updated: 2023/07/19 11:54:04 by juwkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,12 @@ static bool	rotate(t_cub3d *cub3d)
 	moved = false;
 	if (cub3d->key == KEY_LEFT)
 	{
-		cub3d->player.direction -= RT_SPEED;
+		cub3d->player.direction += RT_SPEED;
 		moved = true;
 	}
 	else if (cub3d->key == KEY_RIGHT)
 	{
-		cub3d->player.direction += RT_SPEED;
+		cub3d->player.direction -= RT_SPEED;
 		moved = true;
 	}
 	if (cub3d->player.direction > 2 * M_PI)
@@ -63,11 +63,11 @@ bool	update(t_cub3d *cub3d)
 	direction = -1.0f;
 	if (cub3d->key == KEY_W)
 		direction = cub3d->player.direction + 0 * M_PI / 2;
-	else if (cub3d->key == KEY_D)
+	else if (cub3d->key == KEY_A)
 		direction = cub3d->player.direction + 1 * M_PI / 2;
 	else if (cub3d->key == KEY_S)
 		direction = cub3d->player.direction + 2 * M_PI / 2;
-	else if (cub3d->key == KEY_A)
+	else if (cub3d->key == KEY_D)
 		direction = cub3d->player.direction + 3 * M_PI / 2;
 	if (direction > 0)
 	{

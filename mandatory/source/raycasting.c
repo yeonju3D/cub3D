@@ -6,7 +6,7 @@
 /*   By: juwkim <juwkim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 23:44:35 by juwkim            #+#    #+#             */
-/*   Updated: 2023/07/17 23:59:01 by juwkim           ###   ########.fr       */
+/*   Updated: 2023/07/19 11:59:17 by juwkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static void	set_image_and_off(t_cub3d *const cub3d, t_texture *tex, \
 {
 	if (di + dj > 1 && di > dj)
 	{
-		tex->img = &cub3d->img[SOUTH];
+		tex->img = &cub3d->img[NORTH];
 		tex->off = (int)(dj * TEX_WIDTH);
 	}
 	else if (di + dj > 1 && di <= dj)
@@ -60,7 +60,7 @@ static void	set_image_and_off(t_cub3d *const cub3d, t_texture *tex, \
 	}
 	else
 	{
-		tex->img = &cub3d->img[NORTH];
+		tex->img = &cub3d->img[SOUTH];
 		tex->off = (int)((1 - dj) * TEX_WIDTH);
 	}
 }
