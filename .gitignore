@@ -1,9 +1,13 @@
 .DS_Store
 .vscode
-.cache
-*/build
-libmlx/*.o
-libmlx/*.a
+mandatory/build
+bonus/build
+mlx/*.o
+mlx/*.a
+mlx_Linux/obj
+mlx_Linux/test/*o
+mlx_Linux/test/mlx-test
+mlx_Linux/*.a
 libft/object/
 libft/*.a
 cub3D

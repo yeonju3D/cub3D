@@ -6,7 +6,7 @@
 #    By: juwkim <juwkim@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/08 10:26:53 by yeongo            #+#    #+#              #
-#    Updated: 2023/07/17 23:45:56 by juwkim           ###   ########.fr        #
+#    Updated: 2023/07/20 13:08:36 by juwkim           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ CFLAGS				:=	-Wall -Wextra -Werror
 CPPFLAGS			=	-I$(PROJECT_DIR)/include -I$(LIBFT)/include -I$(LIBMLX)
 DEPFLAGS			=	-MMD -MP -MF $(DEP_DIR)/$*.d
 LDFLAGS				=	-L$(LIBFT) -L$(LIBMLX)
-LDLIBS				=	-lft -l$(LIBMLX)
+LDLIBS				=	-l$(LIBFT) -l$(LIBMLX)
 
 ifeq ($(shell uname -s), Linux)
 	CFLAGS			+=	-Wno-unused-result
@@ -38,7 +38,7 @@ endif
 #    Define the libraries                                                      #
 # ---------------------------------------------------------------------------- #
 
-LIBFT				:=	libft
+LIBFT				:=	ft
 ifeq ($(shell uname -s), Linux)
 	LIBMLX				:=	mlx_Linux
 else
